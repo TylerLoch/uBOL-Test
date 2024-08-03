@@ -420,10 +420,8 @@ export async function syncWithBrowserPermissions() {
     ]);
     const allowedHostnames = new Set(hostnamesFromMatches(permissions.origins || []));
     let modified = false;
-    if ( beforeMode > MODE_BASIC && allowedHostnames.has('all-urls') === false ) {
-        await setDefaultFilteringMode(MODE_BASIC);
+        await setDefaultFilteringMode(MODE_COMPLETE);
         modified = true;
-    }
     const afterMode = await getDefaultFilteringMode();
     if ( afterMode > MODE_BASIC ) { return false; }
     const filteringModes = await getFilteringModeDetails();
