@@ -42,9 +42,9 @@ const uBOL_hrefSanitizer = function() {
 
 const scriptletGlobals = {}; // jshint ignore: line
 
-const argsList = [["a[href*=\".php?go=\"]","?go"],["a[href*=\"/away.php?\"]","?to"],["a[href*=\"/bitrix/rk.php?goto=https\"]","?goto"],["a[href*=\"/go.php\"]","?url"],["a[href*=\"/redir.php?r=\"]","?r"],["a[href*=\"://click.opennet.ru/cgi-bin/\"]","?to"],["a[href*=\"deeplink=\"]","?deeplink"],["a[href][rel*=\"sponsored\"][target=\"_blank\"]","?goto"],["a[href^=\"//www.ixbt.com/click/?c=\"]","[title]"],["a[href^=\"/redir/\"]","?exturl"],["a[href^=\"/redir/\"]","?vzurl"],["a[href^=\"https://www.google.com/url?q=\"]"],["a[href^=\"https://www.youtube.com/redirect?event=\"][href*=\"&q=http\"]","?q"],["[data-cke-saved-href^=\"https://checklink.mail.ru/proxy?\"]"],["[href^=\"https://checklink.mail.ru/proxy?\"]","?url"],["[href^=\"https://click.mail.ru/redir?u=\"]","?u"]];
+const argsList = [["a[href*=\".php?go=\"]","?go"],["a[href*=\"/away.php?\"]","?to"],["a[href*=\"/bitrix/rk.php?goto=https\"]","?goto"],["a[href*=\"/go.php\"]","?url"],["a[href*=\"/redir.php?r=\"]","?r"],["a[href*=\"://click.opennet.ru/cgi-bin/\"]","?to"],["a[href*=\"deeplink=\"]","?deeplink"],["a[href][rel*=\"sponsored\"][target=\"_blank\"]","?goto"],["a[href][target=\"_blank\"][rel=\"nofollow\"]","?ulp"],["a[href^=\"//www.ixbt.com/click/?c=\"]","[title]"],["a[href^=\"/redir/\"]","?exturl"],["a[href^=\"/redir/\"]","?vzurl"],["a[href^=\"https://www.google.com/url?q=\"]"],["a[href^=\"https://www.youtube.com/redirect?event=\"][href*=\"&q=http\"]","?q"],["[data-cke-saved-href^=\"https://checklink.mail.ru/proxy?\"]"],["[href^=\"https://checklink.mail.ru/proxy?\"]","?url"],["[href^=\"https://click.mail.ru/redir?u=\"]","?u"]];
 
-const hostnamesMap = new Map([["softoroom.org",0],["vk.com",1],["vk.ru",1],["freehat.cc",2],["lalapaluza.ru",2],["game4you.top",3],["games-pc.top",3],["innal.top",3],["naylo.top",3],["rustorka.com",3],["rustorka.net",3],["rustorka.top",3],["rustorkacom.lib",3],["stalkermods.ru",4],["opennet.me",5],["opennet.ru",5],["kluchikipro.ru",6],["lifehacker.ru",7],["www.ixbt.com",8],["vz.ru",[9,10]],["nsportal.ru",11],["youtube.com",12],["e.mail.ru",13],["octavius.mail.ru",13],["light.mail.ru",[14,15]]]);
+const hostnamesMap = new Map([["softoroom.org",0],["vk.com",1],["vk.ru",1],["freehat.cc",2],["lalapaluza.ru",2],["game4you.top",3],["games-pc.top",3],["innal.top",3],["naylo.top",3],["rustorka.com",3],["rustorka.net",3],["rustorka.top",3],["rustorkacom.lib",3],["stalkermods.ru",4],["opennet.me",5],["opennet.ru",5],["kluchikipro.ru",6],["lifehacker.ru",7],["hot.game",8],["www.ixbt.com",9],["vz.ru",[10,11]],["nsportal.ru",12],["youtube.com",13],["e.mail.ru",14],["octavius.mail.ru",14],["light.mail.ru",[15,16]]]);
 
 const entitiesMap = new Map([]);
 
@@ -89,9 +89,12 @@ function hrefSanitizer(
         const end = recursive ? source.indexOf('?', 1) : source.length;
         try {
             const url = new URL(href, document.location);
-            const value = url.searchParams.get(source.slice(1, end));
+            let value = url.searchParams.get(source.slice(1, end));
             if ( value === null ) { return href }
             if ( recursive ) { return extractParam(value, source.slice(end)); }
+            if ( value.includes(' ') ) {
+                value = value.replace(/ /g, '%20');
+            }
             return value;
         } catch(x) {
         }
@@ -167,7 +170,7 @@ function hrefSanitizer(
 function runAt(fn, when) {
     const intFromReadyState = state => {
         const targets = {
-            'loading': 1,
+            'loading': 1, 'asap': 1,
             'interactive': 2, 'end': 2, '2': 2,
             'complete': 3, 'idle': 3, '3': 3,
         };
@@ -315,6 +318,12 @@ function safeSelf() {
             }
             return self.requestAnimationFrame(fn);
         },
+        offIdle(id) {
+            if ( self.requestIdleCallback ) {
+                return self.cancelIdleCallback(id);
+            }
+            return self.cancelAnimationFrame(id);
+        }
     };
     scriptletGlobals.safeSelf = safe;
     if ( scriptletGlobals.bcSecret === undefined ) { return safe; }

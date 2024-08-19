@@ -89,9 +89,12 @@ function hrefSanitizer(
         const end = recursive ? source.indexOf('?', 1) : source.length;
         try {
             const url = new URL(href, document.location);
-            const value = url.searchParams.get(source.slice(1, end));
+            let value = url.searchParams.get(source.slice(1, end));
             if ( value === null ) { return href }
             if ( recursive ) { return extractParam(value, source.slice(end)); }
+            if ( value.includes(' ') ) {
+                value = value.replace(/ /g, '%20');
+            }
             return value;
         } catch(x) {
         }
@@ -167,7 +170,7 @@ function hrefSanitizer(
 function runAt(fn, when) {
     const intFromReadyState = state => {
         const targets = {
-            'loading': 1,
+            'loading': 1, 'asap': 1,
             'interactive': 2, 'end': 2, '2': 2,
             'complete': 3, 'idle': 3, '3': 3,
         };
@@ -315,6 +318,12 @@ function safeSelf() {
             }
             return self.requestAnimationFrame(fn);
         },
+        offIdle(id) {
+            if ( self.requestIdleCallback ) {
+                return self.cancelIdleCallback(id);
+            }
+            return self.cancelAnimationFrame(id);
+        }
     };
     scriptletGlobals.safeSelf = safe;
     if ( scriptletGlobals.bcSecret === undefined ) { return safe; }
