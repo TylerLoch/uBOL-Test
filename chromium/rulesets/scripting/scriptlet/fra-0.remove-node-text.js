@@ -36,11 +36,11 @@
 /******************************************************************************/
 
 // Start of code to inject
-const uBOL_spoofCSS = function() {
+const uBOL_removeNodeText = function() {
 
 const scriptletGlobals = {}; // eslint-disable-line
 
-const argsList = [[".navbar-nav > li.nav-item > a[href^=\"https://www.origoclick.com\"]","top","auto"]];
+const argsList = [["script","https://cdn."]];
 
 const hostnamesMap = new Map([["japscan.lol",0]]);
 
@@ -50,108 +50,149 @@ const exceptionsMap = new Map([]);
 
 /******************************************************************************/
 
-function spoofCSS(
-    selector,
-    ...args
+function removeNodeText(
+    nodeName,
+    includes,
+    ...extraArgs
 ) {
-    if ( typeof selector !== 'string' ) { return; }
-    if ( selector === '' ) { return; }
-    const toCamelCase = s => s.replace(/-[a-z]/g, s => s.charAt(1).toUpperCase());
-    const propToValueMap = new Map();
-    for ( let i = 0; i < args.length; i += 2 ) {
-        if ( typeof args[i+0] !== 'string' ) { break; }
-        if ( args[i+0] === '' ) { break; }
-        if ( typeof args[i+1] !== 'string' ) { break; }
-        propToValueMap.set(toCamelCase(args[i+0]), args[i+1]);
-    }
+    replaceNodeTextFn(nodeName, '', '', 'includes', includes || '', ...extraArgs);
+}
+
+function replaceNodeTextFn(
+    nodeName = '',
+    pattern = '',
+    replacement = ''
+) {
     const safe = safeSelf();
-    const logPrefix = safe.makeLogPrefix('spoof-css', selector, ...args);
-    const canDebug = scriptletGlobals.canDebug;
-    const shouldDebug = canDebug && propToValueMap.get('debug') || 0;
-    const instanceProperties = [ 'cssText', 'length', 'parentRule' ];
-    const spoofStyle = (prop, real) => {
-        const normalProp = toCamelCase(prop);
-        const shouldSpoof = propToValueMap.has(normalProp);
-        const value = shouldSpoof ? propToValueMap.get(normalProp) : real;
-        if ( shouldSpoof ) {
-            safe.uboLog(logPrefix, `Spoofing ${prop} to ${value}`);
+    const logPrefix = safe.makeLogPrefix('replace-node-text.fn', ...Array.from(arguments));
+    const reNodeName = safe.patternToRegex(nodeName, 'i', true);
+    const rePattern = safe.patternToRegex(pattern, 'gms');
+    const extraArgs = safe.getExtraArgs(Array.from(arguments), 3);
+    const reIncludes = extraArgs.includes || extraArgs.condition
+        ? safe.patternToRegex(extraArgs.includes || extraArgs.condition, 'ms')
+        : null;
+    const reExcludes = extraArgs.excludes
+        ? safe.patternToRegex(extraArgs.excludes, 'ms')
+        : null;
+    const stop = (takeRecord = true) => {
+        if ( takeRecord ) {
+            handleMutations(observer.takeRecords());
         }
-        return value;
+        observer.disconnect();
+        if ( safe.logLevel > 1 ) {
+            safe.uboLog(logPrefix, 'Quitting');
+        }
     };
-    const cloackFunc = (fn, thisArg, name) => {
-        const trap = fn.bind(thisArg);
-        Object.defineProperty(trap, 'name', { value: name });
-        Object.defineProperty(trap, 'toString', {
-            value: ( ) => `function ${name}() { [native code] }`
-        });
-        return trap;
+    const textContentFactory = (( ) => {
+        const out = { createScript: s => s };
+        const { trustedTypes: tt } = self;
+        if ( tt instanceof Object ) {
+            if ( typeof tt.getPropertyType === 'function' ) {
+                if ( tt.getPropertyType('script', 'textContent') === 'TrustedScript' ) {
+                    return tt.createPolicy(getRandomToken(), out);
+                }
+            }
+        }
+        return out;
+    })();
+    let sedCount = extraArgs.sedCount || 0;
+    const handleNode = node => {
+        const before = node.textContent;
+        if ( reIncludes ) {
+            reIncludes.lastIndex = 0;
+            if ( safe.RegExp_test.call(reIncludes, before) === false ) { return true; }
+        }
+        if ( reExcludes ) {
+            reExcludes.lastIndex = 0;
+            if ( safe.RegExp_test.call(reExcludes, before) ) { return true; }
+        }
+        rePattern.lastIndex = 0;
+        if ( safe.RegExp_test.call(rePattern, before) === false ) { return true; }
+        rePattern.lastIndex = 0;
+        const after = pattern !== ''
+            ? before.replace(rePattern, replacement)
+            : replacement;
+        node.textContent = node.nodeName === 'SCRIPT'
+            ? textContentFactory.createScript(after)
+            : after;
+        if ( safe.logLevel > 1 ) {
+            safe.uboLog(logPrefix, `Text before:\n${before.trim()}`);
+        }
+        safe.uboLog(logPrefix, `Text after:\n${after.trim()}`);
+        return sedCount === 0 || (sedCount -= 1) !== 0;
     };
-    self.getComputedStyle = new Proxy(self.getComputedStyle, {
-        apply: function(target, thisArg, args) {
-            // eslint-disable-next-line no-debugger
-            if ( shouldDebug !== 0 ) { debugger; }
-            const style = Reflect.apply(target, thisArg, args);
-            const targetElements = new WeakSet(document.querySelectorAll(selector));
-            if ( targetElements.has(args[0]) === false ) { return style; }
-            const proxiedStyle = new Proxy(style, {
-                get(target, prop, receiver) {
-                    if ( typeof target[prop] === 'function' ) {
-                        if ( prop === 'getPropertyValue' ) {
-                            return cloackFunc(function getPropertyValue(prop) {
-                                return spoofStyle(prop, target[prop]);
-                            }, target, 'getPropertyValue');
-                        }
-                        return cloackFunc(target[prop], target, prop);
-                    }
-                    if ( instanceProperties.includes(prop) ) {
-                        return Reflect.get(target, prop);
-                    }
-                    return spoofStyle(prop, Reflect.get(target, prop, receiver));
-                },
-                getOwnPropertyDescriptor(target, prop) {
-                    if ( propToValueMap.has(prop) ) {
-                        return {
-                            configurable: true,
-                            enumerable: true,
-                            value: propToValueMap.get(prop),
-                            writable: true,
-                        };
-                    }
-                    return Reflect.getOwnPropertyDescriptor(target, prop);
-                },
-            });
-            return proxiedStyle;
-        },
-        get(target, prop, receiver) {
-            if ( prop === 'toString' ) {
-                return target.toString.bind(target);
+    const handleMutations = mutations => {
+        for ( const mutation of mutations ) {
+            for ( const node of mutation.addedNodes ) {
+                if ( reNodeName.test(node.nodeName) === false ) { continue; }
+                if ( handleNode(node) ) { continue; }
+                stop(false); return;
             }
-            return Reflect.get(target, prop, receiver);
-        },
-    });
-    Element.prototype.getBoundingClientRect = new Proxy(Element.prototype.getBoundingClientRect, {
-        apply: function(target, thisArg, args) {
-            // eslint-disable-next-line no-debugger
-            if ( shouldDebug !== 0 ) { debugger; }
-            const rect = Reflect.apply(target, thisArg, args);
-            const targetElements = new WeakSet(document.querySelectorAll(selector));
-            if ( targetElements.has(thisArg) === false ) { return rect; }
-            let { height, width } = rect;
-            if ( propToValueMap.has('width') ) {
-                width = parseFloat(propToValueMap.get('width'));
-            }
-            if ( propToValueMap.has('height') ) {
-                height = parseFloat(propToValueMap.get('height'));
-            }
-            return new self.DOMRect(rect.x, rect.y, width, height);
-        },
-        get(target, prop, receiver) {
-            if ( prop === 'toString' ) {
-                return target.toString.bind(target);
-            }
-            return Reflect.get(target, prop, receiver);
-        },
-    });
+        }
+    };
+    const observer = new MutationObserver(handleMutations);
+    observer.observe(document, { childList: true, subtree: true });
+    if ( document.documentElement ) {
+        const treeWalker = document.createTreeWalker(
+            document.documentElement,
+            NodeFilter.SHOW_ELEMENT | NodeFilter.SHOW_TEXT
+        );
+        let count = 0;
+        for (;;) {
+            const node = treeWalker.nextNode();
+            count += 1;
+            if ( node === null ) { break; }
+            if ( reNodeName.test(node.nodeName) === false ) { continue; }
+            if ( node === document.currentScript ) { continue; }
+            if ( handleNode(node) ) { continue; }
+            stop(); break;
+        }
+        safe.uboLog(logPrefix, `${count} nodes present before installing mutation observer`);
+    }
+    if ( extraArgs.stay ) { return; }
+    runAt(( ) => {
+        const quitAfter = extraArgs.quitAfter || 0;
+        if ( quitAfter !== 0 ) {
+            setTimeout(( ) => { stop(); }, quitAfter);
+        } else {
+            stop();
+        }
+    }, 'interactive');
+}
+
+function getRandomToken() {
+    const safe = safeSelf();
+    return safe.String_fromCharCode(Date.now() % 26 + 97) +
+        safe.Math_floor(safe.Math_random() * 982451653 + 982451653).toString(36);
+}
+
+function runAt(fn, when) {
+    const intFromReadyState = state => {
+        const targets = {
+            'loading': 1, 'asap': 1,
+            'interactive': 2, 'end': 2, '2': 2,
+            'complete': 3, 'idle': 3, '3': 3,
+        };
+        const tokens = Array.isArray(state) ? state : [ state ];
+        for ( const token of tokens ) {
+            const prop = `${token}`;
+            if ( targets.hasOwnProperty(prop) === false ) { continue; }
+            return targets[prop];
+        }
+        return 0;
+    };
+    const runAt = intFromReadyState(when);
+    if ( intFromReadyState(document.readyState) >= runAt ) {
+        fn(); return;
+    }
+    const onStateChange = ( ) => {
+        if ( intFromReadyState(document.readyState) < runAt ) { return; }
+        fn();
+        safe.removeEventListener.apply(document, args);
+    };
+    const safe = safeSelf();
+    const args = [ 'readystatechange', onStateChange, { capture: true } ];
+    safe.addEventListener.apply(document, args);
 }
 
 function safeSelf() {
@@ -289,9 +330,18 @@ function safeSelf() {
     const bc = new self.BroadcastChannel(scriptletGlobals.bcSecret);
     let bcBuffer = [];
     safe.logLevel = scriptletGlobals.logLevel || 1;
+    let lastLogType = '';
+    let lastLogText = '';
+    let lastLogTime = 0;
     safe.sendToLogger = (type, ...args) => {
         if ( args.length === 0 ) { return; }
         const text = `[${document.location.hostname || document.location.href}]${args.join(' ')}`;
+        if ( text === lastLogText && type === lastLogType ) {
+            if ( (Date.now() - lastLogTime) < 5000 ) { return; }
+        }
+        lastLogType = type;
+        lastLogText = text;
+        lastLogTime = Date.now();
         if ( bcBuffer === undefined ) {
             return bc.postMessage({ what: 'messageToLogger', type, text });
         }
@@ -391,7 +441,7 @@ if ( entitiesMap.size !== 0 ) {
 
 // Apply scriplets
 for ( const i of todoIndices ) {
-    try { spoofCSS(...argsList[i]); }
+    try { removeNodeText(...argsList[i]); }
     catch(ex) {}
 }
 argsList.length = 0;
@@ -409,11 +459,11 @@ argsList.length = 0;
 //   'MAIN' world not yet supported in Firefox, so we inject the code into
 //   'MAIN' ourself when environment in Firefox.
 
-const targetWorld = 'MAIN';
+const targetWorld = 'ISOLATED';
 
 // Not Firefox
 if ( typeof wrappedJSObject !== 'object' || targetWorld === 'ISOLATED' ) {
-    return uBOL_spoofCSS();
+    return uBOL_removeNodeText();
 }
 
 // Firefox
@@ -421,11 +471,11 @@ if ( typeof wrappedJSObject !== 'object' || targetWorld === 'ISOLATED' ) {
     const page = self.wrappedJSObject;
     let script, url;
     try {
-        page.uBOL_spoofCSS = cloneInto([
-            [ '(', uBOL_spoofCSS.toString(), ')();' ],
+        page.uBOL_removeNodeText = cloneInto([
+            [ '(', uBOL_removeNodeText.toString(), ')();' ],
             { type: 'text/javascript; charset=utf-8' },
         ], self);
-        const blob = new page.Blob(...page.uBOL_spoofCSS);
+        const blob = new page.Blob(...page.uBOL_removeNodeText);
         url = page.URL.createObjectURL(blob);
         const doc = page.document;
         script = doc.createElement('script');
@@ -439,7 +489,7 @@ if ( typeof wrappedJSObject !== 'object' || targetWorld === 'ISOLATED' ) {
         if ( script ) { script.remove(); }
         page.URL.revokeObjectURL(url);
     }
-    delete page.uBOL_spoofCSS;
+    delete page.uBOL_removeNodeText;
 }
 
 /******************************************************************************/
