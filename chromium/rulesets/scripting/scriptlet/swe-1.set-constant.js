@@ -42,7 +42,7 @@ const scriptletGlobals = {}; // eslint-disable-line
 
 const argsList = [["ai_set_cookie","noopFunc"],["square_array1","null"],["square_arraytop","null"],["dovideostuffAD","noopFunc"],["testPrebid","noopFunc"],["adblock","false"],["adblockEnabled","falseFunc"],["eazy_ad_unblocker","null"],["showAds","false"],["trap","noopFunc"],["NWS.config.enableAdblockerDetection","false"],["ai_run_scripts","noopFunc"],["ab_disp","noopFunc"],["googletag","1"],["window.WURFL","1"],["checkAdsBlocked","noopFunc"],["canShowAds","true"],["em_track_user","false"],["exactmetrics_frontend","undefined"],["mi_track_user","false"]];
 
-const hostnamesMap = new Map([["byggipedia.se",0],["conpot.se",[1,2]],["feber.se",3],["tjock.se",3],["findit.se",4],["fz.se",5],["fssweden.se",5],["tinyurl.se",5],["gamereactor.se",6],["jobsinsweden.se",7],["kamrat.com",[8,9]],["mitti.se",10],["mobilanyheter.net",11],["ordbokpro.se",12],["spray.se",[13,14]],["vinochmatguiden.se",14],["swedroid.se",15],["thatsup.se",16],["thorengruppen.se",[17,18]],["utslappsratt.se",[17,18]],["heleneholmsif.se",[17,18]],["trafikskola.se",[17,18]],["melodifestivalklubben.se",[17,18]],["morotsliv.com",[17,18]],["zeinaskitchen.se",19],["trafiksakerhet.se",19],["boktugg.se",19],["lakartidningen.se",19],["villalivet.se",19],["matsafari.nu",19],["forexgruppen.se",19],["fastighetsvarlden.se",19]]);
+const hostnamesMap = new Map([["byggipedia.se",0],["conpot.se",[1,2]],["feber.se",3],["tjock.se",3],["findit.se",4],["fz.se",5],["fssweden.se",5],["tinyurl.se",5],["gamereactor.se",6],["jobsinsweden.se",7],["kamrat.com",[8,9]],["mitti.se",10],["mobilanyheter.net",11],["ordbokpro.se",12],["spray.se",[13,14]],["vinochmatguiden.se",14],["swedroid.se",15],["thatsup.se",16],["utslappsratt.se",[17,18]],["heleneholmsif.se",[17,18]],["trafikskola.se",[17,18]],["melodifestivalklubben.se",[17,18]],["morotsliv.com",[17,18]],["zeinaskitchen.se",19],["trafiksakerhet.se",19],["boktugg.se",19],["lakartidningen.se",19],["villalivet.se",19],["matsafari.nu",19],["forexgruppen.se",19],["fastighetsvarlden.se",19]]);
 
 const entitiesMap = new Map([]);
 
@@ -367,13 +367,11 @@ function safeSelf() {
     scriptletGlobals.safeSelf = safe;
     if ( scriptletGlobals.bcSecret === undefined ) { return safe; }
     // This is executed only when the logger is opened
-    const bc = new self.BroadcastChannel(scriptletGlobals.bcSecret);
-    let bcBuffer = [];
     safe.logLevel = scriptletGlobals.logLevel || 1;
     let lastLogType = '';
     let lastLogText = '';
     let lastLogTime = 0;
-    safe.sendToLogger = (type, ...args) => {
+    safe.toLogText = (type, ...args) => {
         if ( args.length === 0 ) { return; }
         const text = `[${document.location.hostname || document.location.href}]${args.join(' ')}`;
         if ( text === lastLogText && type === lastLogType ) {
@@ -382,30 +380,45 @@ function safeSelf() {
         lastLogType = type;
         lastLogText = text;
         lastLogTime = Date.now();
-        if ( bcBuffer === undefined ) {
-            return bc.postMessage({ what: 'messageToLogger', type, text });
-        }
-        bcBuffer.push({ type, text });
+        return text;
     };
-    bc.onmessage = ev => {
-        const msg = ev.data;
-        switch ( msg ) {
-        case 'iamready!':
-            if ( bcBuffer === undefined ) { break; }
-            bcBuffer.forEach(({ type, text }) =>
-                bc.postMessage({ what: 'messageToLogger', type, text })
-            );
-            bcBuffer = undefined;
-            break;
-        case 'setScriptletLogLevelToOne':
-            safe.logLevel = 1;
-            break;
-        case 'setScriptletLogLevelToTwo':
-            safe.logLevel = 2;
-            break;
-        }
-    };
-    bc.postMessage('areyouready?');
+    try {
+        const bc = new self.BroadcastChannel(scriptletGlobals.bcSecret);
+        let bcBuffer = [];
+        safe.sendToLogger = (type, ...args) => {
+            const text = safe.toLogText(type, ...args);
+            if ( text === undefined ) { return; }
+            if ( bcBuffer === undefined ) {
+                return bc.postMessage({ what: 'messageToLogger', type, text });
+            }
+            bcBuffer.push({ type, text });
+        };
+        bc.onmessage = ev => {
+            const msg = ev.data;
+            switch ( msg ) {
+            case 'iamready!':
+                if ( bcBuffer === undefined ) { break; }
+                bcBuffer.forEach(({ type, text }) =>
+                    bc.postMessage({ what: 'messageToLogger', type, text })
+                );
+                bcBuffer = undefined;
+                break;
+            case 'setScriptletLogLevelToOne':
+                safe.logLevel = 1;
+                break;
+            case 'setScriptletLogLevelToTwo':
+                safe.logLevel = 2;
+                break;
+            }
+        };
+        bc.postMessage('areyouready?');
+    } catch(_) {
+        safe.sendToLogger = (type, ...args) => {
+            const text = safe.toLogText(type, ...args);
+            if ( text === undefined ) { return; }
+            safe.log(`uBO ${text}`);
+        };
+    }
     return safe;
 }
 

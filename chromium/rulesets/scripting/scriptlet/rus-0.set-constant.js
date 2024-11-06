@@ -40,13 +40,13 @@ const uBOL_setConstant = function() {
 
 const scriptletGlobals = {}; // eslint-disable-line
 
-const argsList = [["ADV_DISABLED","true"],["Clicks._test_meta_referer","null"],["Object.prototype.AdvObject","noopFunc"],["Object.prototype.AdvertisementManager","undefined"],["Object.prototype.DirectProduct","undefined"],["Object.prototype.IS_CHECK_REGISTRATION","false"],["Object.prototype.MediaReady","noopFunc"],["Object.prototype.PLAYED","null"],["Object.prototype._currentAgeRestriction","null"],["Object.prototype.adUsageStorageVars","undefined"],["Object.prototype.adblockSettings","undefined"],["Object.prototype.advert","null"],["Object.prototype.advert","undefined"],["Object.prototype.advertObject","null"],["Object.prototype.afg","true"],["Object.prototype.amp","noopFunc"],["Object.prototype.autoPlay","false"],["Object.prototype.autoPlay","null"],["Object.prototype.autoPopups","undefined"],["Object.prototype.autoplay","false"],["Object.prototype.autoplay","null"],["Object.prototype.autostart","noopFunc"],["Object.prototype.branding","undefined"],["Object.prototype.changeVisible","noopFunc"],["Object.prototype.createBannerItem","null"],["Object.prototype.detect","noopFunc"],["Object.prototype.detectAdblock","noopFunc"],["Object.prototype.disableAutoplay","true"],["Object.prototype.disablePaste","false"],["Object.prototype.disableSeek","noopFunc"],["Object.prototype.disableSelection","noopFunc"],["Object.prototype.getAutoplay","noopFunc"],["Object.prototype.getUaasConfig","undefined"],["Object.prototype.initialAutoplay","null"],["Object.prototype.livetv-state","true"],["Object.prototype.manualAutoplay_","null"],["Object.prototype.minPlayingVisibleHeight","noopFunc"],["Object.prototype.onIntersected","noopFunc"],["Object.prototype.openstatCb","undefined"],["Object.prototype.partnerId","{}"],["Object.prototype.playVideo","noopFunc"],["Object.prototype.utm","false"],["Object.prototype.utm_campaign","false"],["Object.prototype.utm_medium","false"],["Object.prototype.utm_source","false"],["Object.prototype.utm_space","false"],["Object.prototype.utm_term","false"],["PageBottomBanners","undefined"],["String.fromCharCode","trueFunc"],["Unauthorized2","undefined"],["adBlock","false"],["adsenseIsLoaded","true"],["app.book.external","null"],["cadb","false"],["clicks","2"],["frames.innerWidth","{}"],["g_GazetaNoExchange","true"],["isAdFree","noopFunc"],["localStorage.localstorageGameData",""],["main_air_closed","true"],["noAdsAtAll","{}"],["pl.getParams.isPlay","null"],["player.options.scroll","false"],["playerOptions.behaviour.autoPlay","false"],["player_options.autoplay","false"],["timeEnd","1"],["top100Counter","false"],["window.EUMP.plugins.antiblock","noopFunc"],["window.ab","false"],["Object.prototype.preroll","undefined"],["biads.initCli","undefined"],["flashvars.protect_block",""],["NO_ADV","1"],["Object.prototype._Mimic","undefined"],["Object.prototype.autoPlayParams","false"],["Object.prototype.autoplayScrollHandler","noopFunc"],["Object.prototype.mimic","undefined"],["Object.prototype.obfuscate","noopFunc"],["Object.prototype.onLinkClick","noopFunc"],["Object.prototype.onLinkMouseDown","noopFunc"],["Object.prototype.runMimic","noopFunc"],["Object.prototype.useMimic","noopFunc"],["document.title","null"],["mr._mimic.locator.transform","undefined"],["Object.prototype.hasAdBlock","null"],["Object.prototype.AdvertisingManager","noopFunc"],["Object.prototype._playerAdded","noopFunc"],["Object.prototype.autoplay","noopFunc"],["Object.prototype.hasAdBlock","false"]];
+const argsList = [["ADV_DISABLED","true"],["Clicks._test_meta_referer","null"],["Object.prototype.AdvObject","noopFunc"],["Object.prototype.AdvertisementManager","undefined"],["Object.prototype.DirectProduct","undefined"],["Object.prototype.IS_CHECK_REGISTRATION","false"],["Object.prototype.MediaReady","noopFunc"],["Object.prototype.PLAYED","null"],["Object.prototype._currentAgeRestriction","null"],["Object.prototype.adUsageStorageVars","undefined"],["Object.prototype.adblockSettings","undefined"],["Object.prototype.advert","null"],["Object.prototype.advert","undefined"],["Object.prototype.advertObject","null"],["Object.prototype.afg","true"],["Object.prototype.amp","noopFunc"],["Object.prototype.autoPlay","false"],["Object.prototype.autoPlay","null"],["Object.prototype.autoPopups","undefined"],["Object.prototype.autoplay","false"],["Object.prototype.autoplay","null"],["Object.prototype.autostart","noopFunc"],["Object.prototype.branding","undefined"],["Object.prototype.changeVisible","noopFunc"],["Object.prototype.createBannerItem","null"],["Object.prototype.detect","noopFunc"],["Object.prototype.detectAdblock","noopFunc"],["Object.prototype.disableAutoplay","true"],["Object.prototype.disablePaste","false"],["Object.prototype.disableSeek","noopFunc"],["Object.prototype.disableSelection","noopFunc"],["Object.prototype.getAutoplay","noopFunc"],["Object.prototype.getUaasConfig","undefined"],["Object.prototype.initialAutoplay","null"],["Object.prototype.livetv-state","true"],["Object.prototype.manualAutoplay_","null"],["Object.prototype.minPlayingVisibleHeight","noopFunc"],["Object.prototype.onIntersected","noopFunc"],["Object.prototype.openstatCb","undefined"],["Object.prototype.partnerId","{}"],["Object.prototype.playVideo","noopFunc"],["Object.prototype.utm","false"],["Object.prototype.utm_campaign","false"],["Object.prototype.utm_medium","false"],["Object.prototype.utm_source","false"],["Object.prototype.utm_space","false"],["Object.prototype.utm_term","false"],["PageBottomBanners","undefined"],["String.fromCharCode","trueFunc"],["Unauthorized2","undefined"],["adBlock","false"],["adsenseIsLoaded","true"],["app.book.external","null"],["cadb","false"],["clicks","2"],["frames.innerWidth","{}"],["g_GazetaNoExchange","true"],["isAdFree","noopFunc"],["localStorage.localstorageGameData",""],["main_air_closed","true"],["noAdsAtAll","{}"],["pl.getParams.isPlay","null"],["player.options.scroll","false"],["playerOptions.behaviour.autoPlay","false"],["player_options.autoplay","false"],["timeEnd","1"],["top100Counter","false"],["window.EUMP.plugins.antiblock","noopFunc"],["window.ab","false"],["Object.prototype.preroll","undefined"],["biads.initCli","undefined"],["flashvars.protect_block",""],["NO_ADV","1"],["Object.prototype._Mimic","undefined"],["Object.prototype.autoPlayParams","false"],["Object.prototype.autoplayScrollHandler","noopFunc"],["Object.prototype.mimic","undefined"],["Object.prototype.obfuscate","noopFunc"],["Object.prototype.runMimic","noopFunc"],["Object.prototype.useMimic","noopFunc"],["document.title","null"],["mr._mimic.locator.transform","undefined"],["Object.prototype.hasAdBlock","null"],["Object.prototype.AdvertisingManager","noopFunc"],["Object.prototype._playerAdded","noopFunc"],["Object.prototype.autoplay","noopFunc"],["Object.prototype.hasAdBlock","false"]];
 
-const hostnamesMap = new Map([["peers.tv",0],["www.ukr.net",1],["ivi.ru",[2,13]],["ictv.ua",3],["inter.ua",3],["k1.ua",3],["novy.tv",3],["ntn.ua",3],["starlight.digital",3],["stb.ua",3],["teleportal.ua",3],["dzen.ru",[4,31,32,39]],["player.vgtrk.com",5],["tv-gubernia.ru",[6,59]],["xsport.ua",7],["1tv.ru",[8,29,67]],["music.yandex.by",9],["music.yandex.kz",9],["music.yandex.ru",9],["music.yandex.uz",9],["api-video.khl.ru",10],["razlozhi.ru",[11,53]],["rutube.ru",12],["igroutka.ru",14],["kinonews.ru",15],["cdnvideo.ru",16],["eda.ru",16],["mania.gcdn.co",16],["tass.ru",[16,55]],["vp.rambler.ru",[16,36]],["www.rambler.ru",16],["afisha.ru",17],["partnerkin.com",18],["frontend.vh.yandex.ru",[19,31,33,39]],["eagleplatform.com",[20,62]],["embed.dugout.com",21],["sports.ru",22],["dni.expert",23],["dni.ru",23],["kp.kg",23],["kp.kz",23],["kp.md",23],["kp.ru",23],["lifehacker.ru",23],["mk.ru",23],["ohotniki.ru",23],["portalvirtualreality.ru",23],["radiokp.ru",23],["sportkp.ru",23],["wday.ru",23],["woman.ru",23],["womanhit.ru",23],["ati.su",24],["24smi.org",25],["examenpdd.com",26],["embed.twitch.tv",27],["player.twitch.tv",27],["www.mos.ru",28],["kinokong.bz",30],["rbc.ru",34],["sportrbc.ru",34],["tenews.org.ua",35],["rg.ru",[37,38]],["naydex.net",39],["widgets.kinopoisk.ru",39],["www.kinopoisk.ru",39],["yastatic.net",39],["3dnews.kz",40],["3dnews.ru",40],["vm.ru",40],["forbes.ru",[41,42,43,44,45,46]],["vk.com",[47,49,60]],["vk.ru",[47,49,60]],["free-tor.info",48],["korsars.info",48],["hentai-share.one",50],["in-poland.com",51],["gdz-putina.fun",52],["gdz.ninja",52],["gdz.ru",52],["gdzotputina.club",52],["gdzputina.net",52],["megaresheba.com",52],["megaresheba.ru",52],["resheba.me",52],["spishi.fun",52],["zoobrilka.net",52],["audioportal.su",54],["gazeta.ru",[56,57]],["playground.ru",58],["player.smotrim.ru",61],["kinescope.io",63],["m24.ru",64],["softportal.com",65],["rambler.ru",66],["remont-aud.net",68],["fanserial.fun",69],["fanserialstv.net",69],["okminigames.mail.ru",72],["otvet.mail.ru",73],["player-smotri.mail.ru",74],["ok.ru",[75,77]],["mail.ru",[76,82,83]],["sportmail.ru",[76,81]],["e.mail.ru",[78,79,84,88]],["octavius.mail.ru",[78,79,84]],["my.mail.ru",80],["news.mail.ru",81],["pogoda.mail.ru",81],["mail.ukr.net",85],["116.ru",[86,87]],["14.ru",[86,87]],["161.ru",[86,87]],["164.ru",[86,87]],["173.ru",[86,87]],["178.ru",[86,87]],["26.ru",[86,87]],["29.ru",[86,87]],["35.ru",[86,87]],["43.ru",[86,87]],["45.ru",[86,87]],["48.ru",[86,87]],["51.ru",[86,87]],["53.ru",[86,87]],["56.ru",[86,87]],["59.ru",[86,87]],["60.ru",[86,87]],["62.ru",[86,87]],["63.ru",[86,87]],["68.ru",[86,87]],["71.ru",[86,87]],["72.ru",[86,87]],["74.ru",[86,87]],["76.ru",[86,87]],["86.ru",[86,87]],["89.ru",[86,87]],["93.ru",[86,87]],["chita.ru",[86,87]],["e1.ru",[86,87]],["ircity.ru",[86,87]],["izh1.ru",[86,87]],["mgorsk.ru",[86,87]],["msk1.ru",[86,87]],["ngs.ru",[86,87]],["ngs22.ru",[86,87]],["ngs24.ru",[86,87]],["ngs42.ru",[86,87]],["ngs55.ru",[86,87]],["ngs70.ru",[86,87]],["nn.ru",[86,87]],["sochi1.ru",[86,87]],["sterlitamak1.ru",[86,87]],["tolyatty.ru",[86,87]],["ufa1.ru",[86,87]],["v1.ru",[86,87]],["vladivostok1.ru",[86,87]],["voronezh1.ru",[86,87]],["www.fontanka.ru",[86,87]]]);
+const hostnamesMap = new Map([["peers.tv",0],["www.ukr.net",1],["ivi.ru",[2,13]],["ictv.ua",3],["inter.ua",3],["k1.ua",3],["novy.tv",3],["ntn.ua",3],["starlight.digital",3],["stb.ua",3],["teleportal.ua",3],["dzen.ru",[4,31,32,39]],["player.vgtrk.com",5],["tv-gubernia.ru",[6,59]],["xsport.ua",7],["1tv.ru",[8,29,67]],["music.yandex.by",9],["music.yandex.kz",9],["music.yandex.ru",9],["music.yandex.uz",9],["api-video.khl.ru",10],["razlozhi.ru",[11,53]],["rutube.ru",12],["igroutka.ru",14],["kinonews.ru",15],["cdnvideo.ru",16],["eda.ru",16],["mania.gcdn.co",16],["tass.ru",[16,55]],["vp.rambler.ru",[16,36]],["www.rambler.ru",16],["afisha.ru",17],["partnerkin.com",18],["frontend.vh.yandex.ru",[19,31,33,39]],["eagleplatform.com",[20,62]],["embed.dugout.com",21],["sports.ru",22],["dni.expert",23],["dni.ru",23],["kp.kg",23],["kp.kz",23],["kp.md",23],["kp.ru",23],["ladys.media",23],["lifehacker.ru",23],["mk.ru",23],["ohotniki.ru",23],["portalvirtualreality.ru",23],["radiokp.ru",23],["sportkp.ru",23],["wday.ru",23],["woman.ru",23],["womanhit.ru",23],["ati.su",24],["24smi.org",25],["examenpdd.com",26],["embed.twitch.tv",27],["player.twitch.tv",27],["www.mos.ru",28],["kinokong.bz",30],["rbc.ru",34],["sportrbc.ru",34],["tenews.org.ua",35],["rg.ru",[37,38]],["naydex.net",39],["widgets.kinopoisk.ru",39],["www.kinopoisk.ru",39],["yastatic.net",39],["3dnews.kz",40],["3dnews.ru",40],["vm.ru",40],["forbes.ru",[41,42,43,44,45,46]],["vk.com",[47,49,60]],["vk.ru",[47,49,60]],["free-tor.info",48],["korsars.info",48],["hentai-share.one",50],["in-poland.com",51],["gdz-putina.fun",52],["gdz.ninja",52],["gdz.ru",52],["gdzotputina.club",52],["gdzputina.net",52],["megaresheba.com",52],["megaresheba.ru",52],["resheba.me",52],["spishi.fun",52],["zoobrilka.net",52],["audioportal.su",54],["gazeta.ru",[56,57]],["playground.ru",58],["player.smotrim.ru",61],["kinescope.io",63],["m24.ru",64],["softportal.com",65],["rambler.ru",66],["remont-aud.net",68],["fanserial.fun",69],["fanserialstv.net",69],["okminigames.mail.ru",72],["otvet.mail.ru",73],["player-smotri.mail.ru",74],["ok.ru",[75,77]],["mail.ru",[76,80,81]],["sportmail.ru",[76,79]],["my.mail.ru",78],["news.mail.ru",79],["pogoda.mail.ru",79],["e.mail.ru",[82,86]],["octavius.mail.ru",82],["mail.ukr.net",83],["116.ru",[84,85]],["14.ru",[84,85]],["161.ru",[84,85]],["164.ru",[84,85]],["173.ru",[84,85]],["178.ru",[84,85]],["26.ru",[84,85]],["29.ru",[84,85]],["35.ru",[84,85]],["43.ru",[84,85]],["45.ru",[84,85]],["48.ru",[84,85]],["51.ru",[84,85]],["53.ru",[84,85]],["56.ru",[84,85]],["59.ru",[84,85]],["60.ru",[84,85]],["62.ru",[84,85]],["63.ru",[84,85]],["68.ru",[84,85]],["71.ru",[84,85]],["72.ru",[84,85]],["74.ru",[84,85]],["76.ru",[84,85]],["86.ru",[84,85]],["89.ru",[84,85]],["93.ru",[84,85]],["chita.ru",[84,85]],["e1.ru",[84,85]],["ircity.ru",[84,85]],["izh1.ru",[84,85]],["mgorsk.ru",[84,85]],["msk1.ru",[84,85]],["ngs.ru",[84,85]],["ngs22.ru",[84,85]],["ngs24.ru",[84,85]],["ngs42.ru",[84,85]],["ngs55.ru",[84,85]],["ngs70.ru",[84,85]],["nn.ru",[84,85]],["sochi1.ru",[84,85]],["sterlitamak1.ru",[84,85]],["tolyatty.ru",[84,85]],["ufa1.ru",[84,85]],["v1.ru",[84,85]],["vladivostok1.ru",[84,85]],["voronezh1.ru",[84,85]],["www.fontanka.ru",[84,85]]]);
 
 const entitiesMap = new Map([["hdrezka",69],["rezka",69],["mult-porno",70],["sex-studentki",70],["cosplay-porn",70],["smaxim",71]]);
 
-const exceptionsMap = new Map([["spec.tass.ru",[55]],["calls.mail.ru",[76,82,83]],["e.mail.ru",[76,82,83]],["my.mail.ru",[76,82,83]],["o2.mail.ru",[76,82,83]],["octavius.mail.ru",[76,82,83]],["touch.mail.ru",[76,82,83]],["3igames.mail.ru",[82,83]],["account.mail.ru",[82,83]],["auto.mail.ru",[82,83]],["biz.mail.ru",[82,83]],["bonus.mail.ru",[82,83]],["calendar.mail.ru",[82,83]],["cloud.mail.ru",[82,83]],["connect.mail.ru",[82,83]],["deti.mail.ru",[82,83]],["dobro.mail.ru",[82,83]],["finance.mail.ru",[82,83]],["gibdd.mail.ru",[82,83]],["health.mail.ru",[82,83]],["help.mail.ru",[82,83]],["hi-tech.mail.ru",[82,83]],["horo.mail.ru",[82,83]],["kino.mail.ru",[82,83]],["lady.mail.ru",[82,83]],["love.mail.ru",[82,83]],["mcs.mail.ru",[82,83]],["minigames.mail.ru",[82,83]],["news.mail.ru",[82,83]],["okminigames.mail.ru",[82,83]],["otvet.mail.ru",[82,83]],["pets.mail.ru",[82,83]],["player-smotri.mail.ru",[82,83]],["pogoda.mail.ru",[82,83]],["top.mail.ru",[82,83]],["tv.mail.ru",[82,83]],["vfokuse.mail.ru",[82,83]],["widgets.mail.ru",[82,83]],["blog.mail.ru",[83]]]);
+const exceptionsMap = new Map([["spec.tass.ru",[55]],["calls.mail.ru",[76,80,81]],["e.mail.ru",[76,80,81]],["my.mail.ru",[76,80,81]],["o2.mail.ru",[76,80,81]],["octavius.mail.ru",[76,80,81]],["touch.mail.ru",[76,80,81]],["3igames.mail.ru",[80,81]],["account.mail.ru",[80,81]],["auto.mail.ru",[80,81]],["biz.mail.ru",[80,81]],["bonus.mail.ru",[80,81]],["calendar.mail.ru",[80,81]],["cloud.mail.ru",[80,81]],["connect.mail.ru",[80,81]],["deti.mail.ru",[80,81]],["dobro.mail.ru",[80,81]],["finance.mail.ru",[80,81]],["gibdd.mail.ru",[80,81]],["health.mail.ru",[80,81]],["help.mail.ru",[80,81]],["hi-tech.mail.ru",[80,81]],["horo.mail.ru",[80,81]],["kino.mail.ru",[80,81]],["lady.mail.ru",[80,81]],["love.mail.ru",[80,81]],["mcs.mail.ru",[80,81]],["minigames.mail.ru",[80,81]],["news.mail.ru",[80,81]],["okminigames.mail.ru",[80,81]],["otvet.mail.ru",[80,81]],["pets.mail.ru",[80,81]],["player-smotri.mail.ru",[80,81]],["pogoda.mail.ru",[80,81]],["top.mail.ru",[80,81]],["tv.mail.ru",[80,81]],["vfokuse.mail.ru",[80,81]],["widgets.mail.ru",[80,81]],["blog.mail.ru",[81]]]);
 
 /******************************************************************************/
 
@@ -367,13 +367,11 @@ function safeSelf() {
     scriptletGlobals.safeSelf = safe;
     if ( scriptletGlobals.bcSecret === undefined ) { return safe; }
     // This is executed only when the logger is opened
-    const bc = new self.BroadcastChannel(scriptletGlobals.bcSecret);
-    let bcBuffer = [];
     safe.logLevel = scriptletGlobals.logLevel || 1;
     let lastLogType = '';
     let lastLogText = '';
     let lastLogTime = 0;
-    safe.sendToLogger = (type, ...args) => {
+    safe.toLogText = (type, ...args) => {
         if ( args.length === 0 ) { return; }
         const text = `[${document.location.hostname || document.location.href}]${args.join(' ')}`;
         if ( text === lastLogText && type === lastLogType ) {
@@ -382,30 +380,45 @@ function safeSelf() {
         lastLogType = type;
         lastLogText = text;
         lastLogTime = Date.now();
-        if ( bcBuffer === undefined ) {
-            return bc.postMessage({ what: 'messageToLogger', type, text });
-        }
-        bcBuffer.push({ type, text });
+        return text;
     };
-    bc.onmessage = ev => {
-        const msg = ev.data;
-        switch ( msg ) {
-        case 'iamready!':
-            if ( bcBuffer === undefined ) { break; }
-            bcBuffer.forEach(({ type, text }) =>
-                bc.postMessage({ what: 'messageToLogger', type, text })
-            );
-            bcBuffer = undefined;
-            break;
-        case 'setScriptletLogLevelToOne':
-            safe.logLevel = 1;
-            break;
-        case 'setScriptletLogLevelToTwo':
-            safe.logLevel = 2;
-            break;
-        }
-    };
-    bc.postMessage('areyouready?');
+    try {
+        const bc = new self.BroadcastChannel(scriptletGlobals.bcSecret);
+        let bcBuffer = [];
+        safe.sendToLogger = (type, ...args) => {
+            const text = safe.toLogText(type, ...args);
+            if ( text === undefined ) { return; }
+            if ( bcBuffer === undefined ) {
+                return bc.postMessage({ what: 'messageToLogger', type, text });
+            }
+            bcBuffer.push({ type, text });
+        };
+        bc.onmessage = ev => {
+            const msg = ev.data;
+            switch ( msg ) {
+            case 'iamready!':
+                if ( bcBuffer === undefined ) { break; }
+                bcBuffer.forEach(({ type, text }) =>
+                    bc.postMessage({ what: 'messageToLogger', type, text })
+                );
+                bcBuffer = undefined;
+                break;
+            case 'setScriptletLogLevelToOne':
+                safe.logLevel = 1;
+                break;
+            case 'setScriptletLogLevelToTwo':
+                safe.logLevel = 2;
+                break;
+            }
+        };
+        bc.postMessage('areyouready?');
+    } catch(_) {
+        safe.sendToLogger = (type, ...args) => {
+            const text = safe.toLogText(type, ...args);
+            if ( text === undefined ) { return; }
+            safe.log(`uBO ${text}`);
+        };
+    }
     return safe;
 }
 

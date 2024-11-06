@@ -20,7 +20,7 @@
     "description": "appears as tab name in dashboard"
   },
   "aboutPageName": {
-    "message": "عن التطبيق",
+    "message": "حول البرنامج",
     "description": "appears as tab name in dashboard"
   },
   "aboutPrivacyPolicy": {
@@ -52,7 +52,7 @@
     "description": "Header for a ruleset section in 'Filter lists pane'"
   },
   "3pGroupAds": {
-    "message": "اعلانات",
+    "message": "إعلانات",
     "description": "Header for a ruleset section in 'Filter lists pane'"
   },
   "3pGroupPrivacy": {

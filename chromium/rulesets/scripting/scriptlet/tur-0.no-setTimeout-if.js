@@ -40,7 +40,7 @@ const uBOL_noSetTimeoutIf = function() {
 
 const scriptletGlobals = {}; // eslint-disable-line
 
-const argsList = [["0===o.offsetLeft&&0===o.offsetTop"],["adElement.innerHTML","1000"],["adsbygoogle"],["adblockalert"],["AdBlock"],["offsetParent"],["ad_block_detected"],["$('body').empty().append"],["kanews-modal-adblock","5000"],["/div#gpt-passback|playerNew\\.dispose\\(\\)/"],["/img[\\s\\S]*?\\.gif/"],["/filmizletv\\..*\\/uploads\\/Psk\\//"],["wt()","100"]];
+const argsList = [["0===o.offsetLeft&&0===o.offsetTop"],["/adElement\\.innerHTML|=document\\[_0x/"],["adsbygoogle"],["adblockalert"],["AdBlock"],["offsetParent"],["ad_block_detected"],["$('body').empty().append"],["kanews-modal-adblock","5000"],["/div#gpt-passback|playerNew\\.dispose\\(\\)/"],["/img[\\s\\S]*?\\.gif/"],["/filmizletv\\..*\\/uploads\\/Psk\\//"],["wt()","100"]];
 
 const hostnamesMap = new Map([["ankarakampkafasi.com",0],["zamaninvarken.com",0],["kredi.biz.tr",0],["kriptoradar.com",0],["bakimlikadin.net",0],["korsanedebiyat.com",0],["ozbeceriksizler.co",0],["genelpara.com",0],["azbuz.org",0],["mustafabukulmez.com",0],["gecmisi.com.tr",1],["teknoinfo.com.tr",2],["inceleriz.com",3],["sinnerclownceviri.com",[4,5]],["intekno.net",6],["kuponuna170.top",7],["kuponuna171.top",7],["kuponuna172.top",7],["kuponuna173.top",7],["kuponuna174.top",7],["kuponuna175.top",7],["kuponuna176.top",7],["kuponuna177.top",7],["kuponuna178.top",7],["kuponuna179.top",7],["kuponuna180.top",7],["kuponuna181.top",7],["kuponuna182.top",7],["kuponuna183.top",7],["kuponuna184.top",7],["kuponuna185.top",7],["kuponuna186.top",7],["kuponuna187.top",7],["kuponuna188.top",7],["kuponuna189.top",7],["kuponuna190.top",7],["kuponuna191.top",7],["kuponuna192.top",7],["kuponuna193.top",7],["kuponuna194.top",7],["kuponuna195.top",7],["kuponuna196.top",7],["kuponuna197.top",7],["kuponuna198.top",7],["kuponuna199.top",7],["kuponuna200.top",7],["kuponuna201.top",7],["kuponuna202.top",7],["kuponuna203.top",7],["kuponuna204.top",7],["kuponuna205.top",7],["kuponuna206.top",7],["kuponuna207.top",7],["kuponuna208.top",7],["kuponuna209.top",7],["kuponuna210.top",7],["kuponuna211.top",7],["kuponuna212.top",7],["kuponuna213.top",7],["kuponuna214.top",7],["kuponuna215.top",7],["kuponuna216.top",7],["kuponuna217.top",7],["kuponuna218.top",7],["kuponuna219.top",7],["kuponuna220.top",7],["kuponuna221.top",7],["kuponuna222.top",7],["kuponuna223.top",7],["kuponuna224.top",7],["kuponuna225.top",7],["kuponuna226.top",7],["kuponuna227.top",7],["kuponuna228.top",7],["kuponuna229.top",7],["kuponuna230.top",7],["kuponuna231.top",7],["kuponuna232.top",7],["kuponuna233.top",7],["kuponuna234.top",7],["kuponuna235.top",7],["kuponuna236.top",7],["kuponuna237.top",7],["kuponuna238.top",7],["kuponuna239.top",7],["kuponuna240.top",7],["kuponuna241.top",7],["kuponuna242.top",7],["kuponuna243.top",7],["kuponuna244.top",7],["kuponuna245.top",7],["kuponuna246.top",7],["kuponuna247.top",7],["kuponuna248.top",7],["kuponuna249.top",7],["kuponuna250.top",7],["veryansintv.com",8],["puhutv.com",9],["dizigom1.tv",10],["filmizletv2.com",11],["filmizletv18.com",11],["eksisozluk.com",12]]);
 
@@ -305,13 +305,11 @@ function safeSelf() {
     scriptletGlobals.safeSelf = safe;
     if ( scriptletGlobals.bcSecret === undefined ) { return safe; }
     // This is executed only when the logger is opened
-    const bc = new self.BroadcastChannel(scriptletGlobals.bcSecret);
-    let bcBuffer = [];
     safe.logLevel = scriptletGlobals.logLevel || 1;
     let lastLogType = '';
     let lastLogText = '';
     let lastLogTime = 0;
-    safe.sendToLogger = (type, ...args) => {
+    safe.toLogText = (type, ...args) => {
         if ( args.length === 0 ) { return; }
         const text = `[${document.location.hostname || document.location.href}]${args.join(' ')}`;
         if ( text === lastLogText && type === lastLogType ) {
@@ -320,30 +318,45 @@ function safeSelf() {
         lastLogType = type;
         lastLogText = text;
         lastLogTime = Date.now();
-        if ( bcBuffer === undefined ) {
-            return bc.postMessage({ what: 'messageToLogger', type, text });
-        }
-        bcBuffer.push({ type, text });
+        return text;
     };
-    bc.onmessage = ev => {
-        const msg = ev.data;
-        switch ( msg ) {
-        case 'iamready!':
-            if ( bcBuffer === undefined ) { break; }
-            bcBuffer.forEach(({ type, text }) =>
-                bc.postMessage({ what: 'messageToLogger', type, text })
-            );
-            bcBuffer = undefined;
-            break;
-        case 'setScriptletLogLevelToOne':
-            safe.logLevel = 1;
-            break;
-        case 'setScriptletLogLevelToTwo':
-            safe.logLevel = 2;
-            break;
-        }
-    };
-    bc.postMessage('areyouready?');
+    try {
+        const bc = new self.BroadcastChannel(scriptletGlobals.bcSecret);
+        let bcBuffer = [];
+        safe.sendToLogger = (type, ...args) => {
+            const text = safe.toLogText(type, ...args);
+            if ( text === undefined ) { return; }
+            if ( bcBuffer === undefined ) {
+                return bc.postMessage({ what: 'messageToLogger', type, text });
+            }
+            bcBuffer.push({ type, text });
+        };
+        bc.onmessage = ev => {
+            const msg = ev.data;
+            switch ( msg ) {
+            case 'iamready!':
+                if ( bcBuffer === undefined ) { break; }
+                bcBuffer.forEach(({ type, text }) =>
+                    bc.postMessage({ what: 'messageToLogger', type, text })
+                );
+                bcBuffer = undefined;
+                break;
+            case 'setScriptletLogLevelToOne':
+                safe.logLevel = 1;
+                break;
+            case 'setScriptletLogLevelToTwo':
+                safe.logLevel = 2;
+                break;
+            }
+        };
+        bc.postMessage('areyouready?');
+    } catch(_) {
+        safe.sendToLogger = (type, ...args) => {
+            const text = safe.toLogText(type, ...args);
+            if ( text === undefined ) { return; }
+            safe.log(`uBO ${text}`);
+        };
+    }
     return safe;
 }
 

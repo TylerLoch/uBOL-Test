@@ -59,8 +59,8 @@
  },
  "condition": {
   "initiatorDomains": [
-   "phevkl.mx",
-   "viet69.vote"
+   "phevkl.blog",
+   "viet69.sale"
   ],
   "urlFilter": "||i2.vlstorage.com/da88_1080p.mp4"
  },
@@ -85,6 +85,22 @@
   "urlFilter": "||alwingulla.com/88/tag.min.js"
  },
  "id": 5,
+ "priority": 2
+},
+{
+ "action": {
+  "redirect": {
+   "extensionPath": "/web_accessible_resources/noop-1s.mp4"
+  },
+  "type": "redirect"
+ },
+ "condition": {
+  "initiatorDomains": [
+   "thichxemphim1.net"
+  ],
+  "urlFilter": "||thichxemphim1.net/fb88-28012023.mp4"
+ },
+ "id": 6,
  "priority": 2
 }
 ]

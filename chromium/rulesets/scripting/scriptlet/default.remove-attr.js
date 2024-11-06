@@ -40,11 +40,11 @@ const uBOL_removeAttr = function() {
 
 const scriptletGlobals = {}; // eslint-disable-line
 
-const argsList = [["data-id|data-p","[data-id],[data-p]","stay"],["onclick"],["href|target","a[href=\"https://imgprime.com/view.php\"][target=\"_blank\"]","complete"],["href","a[href=\"https://vpn-choice.com\"]"],["src","iframe#claimAd"],["href","#opfk"],["srcdoc","iframe"],["checked","input#chkIsAdd"],["onmousemove","button"],["onclick","button[id][onclick*=\".html\"]"],["onclick","button[name=\"imgContinue\"][onclick]"],["target","#continuetoimage > [href]"],["href|target","#continuetoimage > [href][onclick], #overlayera > #ajax_load_indicator > #page_effect > [href][onclick]"],["target"],["href","[href*=\"ccbill\"]"],["onclick","[onclick^=\"window.open\"]"],["href","#clickfakeplayer"],["onclick","","stay"],["type","input[value^=\"http\"]"],["oncontextmenu"],["data-ivad-preroll-adtag","video","stay"],["href","a#clickfakeplayer"],["href",".fake_player > [href][target]"],["href",".link"],["target",".clickbutton"],["oncontextmenu","body"],["disabled","button"],["data-ppcnt_ads","main[onclick]"],["href","[href*=\"jump\"]","stay"],["style","#over"],["class","div.intAdX"],["class","div[class^=\"img\"][class$=\"ad\"]"],["onclick","button[onclick*=\"open\"]"],["disabled","#tp-snp2"],["data-ppcnt_ads|onclick","#main"],["onclick",".btn-success.get-link","stay"],["disabled",".btn-primary"],["href",".MyAd > a[target=\"_blank\"]"],["data-ppcnt_ads","","stay"],["onclick","button[onclick^=\"window.open\"]"],["onclick",".btn"],["onclick","[onclick^=\"pop\"]"],["href","[href^=\"https://aj2218.online/\"]","stay"],["target","#downloadvideo"],["data-item","a[href='']"],["href","a[href*=\"/ads.php\"][target=\"_blank\"]"],["onclick","[onclick*=\"window.open\"]"],["target|href","a[href^=\"//\"]"],["onclick","a[href^=\"magnet:\"][onclick]"],["target","#SafelinkGenerate"],["onclick","a[href][onclick^=\"getFullStory\"]"],["onclick","body"],["onclick",".previewhd > a"],["href|target|data-ipshover-target|data-ipshover|data-autolink|rel","a[href^=\"https://thumpertalk.com/link/click/\"][target=\"_blank\"]"],["href","#continue"],["href",".button[href^=\"javascript\"]"],["disabled","input[id=\"button1\"][class=\"btn btn-primary\"][disabled]"],["type","[src*=\"SPOT\"]","asap stay"],["class","div#player"],["href|target|data-onclick","a[id=\"dl\"][data-onclick^=\"window.open\"]","stay"],["href","a#clickfkplayer"],["onclick","a[onclick^=\"setTimeout\"]"],["href",".mvi-cover"],["href",".t-out-span [href*=\"utm_source\"]","stay"],["src",".t-out-span [src*=\".gif\"]","stay"],["disabled",".panel-body > .text-center > button"],["href","[onclick]","stay"],["onmousedown",".ob-dynamic-rec-link","stay"],["disabled","a#redirect-btn"],["href",".unlock-step-link"],["href","[href*=\"discord\"]"],["href",".MediaStep","stay"],["href","[href=\"/bestporn.html\"]"],["disabled","button#getlink"],["disabled","button#gotolink"],["id","#div-gpt-ad-footer"],["id","#div-gpt-ad-pagebottom"],["id","#div-gpt-ad-relatedbottom-1"],["id","#div-gpt-ad-sidebottom"],["disabled",".downloadbtn"],["onclick","#direct_link > a[onclick]"],["href","[onclick^=\"pop\"]"],["disabled","#gotolink"],["style","[style*=\"background-image: url\"]","stay"],["href","[href*=\"click?\"]","stay"],["href",".atas > a[href*=\"/redirect\"][onclick]"],["onload","[onload^=\"window.open\"]"],["href","a[href*=\"torrentico.top/sim/go.php\"]"],["onclick","[type=\"submit\"]"],["onclick","a#downloadbtn[onclick^=\"window.open\"]","stay"],["onclick","a[onclick]"],["onclick","a[onclick*=\"window.open\"]"],["style","[style^=\"background\"]","stay"],["href","[target^=\"_\"]","stay"],["class|style","div[id^=\"los40_gpt\"]"],["data-woman-ex","a[href][data-woman-ex]"],["data-trm-action|data-trm-category|data-trm-label",".trm_event","stay"]];
+const argsList = [["data-id|data-p","[data-id],[data-p]","stay"],["onclick"],["href|target","a[href=\"https://imgprime.com/view.php\"][target=\"_blank\"]","complete"],["href","a[href=\"https://vpn-choice.com\"]"],["href","#opfk"],["srcdoc","iframe"],["checked","input#chkIsAdd"],["onmousemove","button"],["onclick","button[id][onclick*=\".html\"]"],["onclick","button[name=\"imgContinue\"][onclick]"],["target","#continuetoimage > [href]"],["href|target","#continuetoimage > [href][onclick], #overlayera > #ajax_load_indicator > #page_effect > [href][onclick]"],["target"],["href","[href*=\"ccbill\"]"],["onclick","[onclick^=\"window.open\"]"],["href","#clickfakeplayer"],["onclick","","stay"],["type","input[value^=\"http\"]"],["oncontextmenu"],["data-ivad-preroll-adtag","video","stay"],["href","a#clickfakeplayer"],["href",".fake_player > [href][target]"],["href",".link"],["target",".clickbutton"],["disabled","button"],["data-ppcnt_ads","main[onclick]"],["href","[href*=\"jump\"]","stay"],["style","#over"],["oncontextmenu","body"],["onclick","button[onclick*=\"open\"]"],["disabled","#tp-snp2"],["data-ppcnt_ads|onclick","#main"],["onclick",".btn-success.get-link","stay"],["disabled",".btn-primary"],["href",".MyAd > a[target=\"_blank\"]"],["data-ppcnt_ads","","stay"],["onclick","button[onclick^=\"window.open\"]"],["onclick",".btn"],["onclick","[onclick^=\"pop\"]"],["href","[href^=\"https://aj2218.online/\"]","stay"],["target","#downloadvideo"],["data-item","a[href='']"],["href","a[href*=\"/ads.php\"][target=\"_blank\"]"],["onclick","[onclick*=\"window.open\"]"],["target|href","a[href^=\"//\"]"],["onclick","a[href^=\"magnet:\"][onclick]"],["target","#SafelinkGenerate"],["onclick","a[href][onclick^=\"getFullStory\"]"],["onclick","a.btn[onclick^=\"OPEN_NEW_LINK\"]","stay"],["onclick","body"],["onclick",".previewhd > a"],["href|target|data-ipshover-target|data-ipshover|data-autolink|rel","a[href^=\"https://thumpertalk.com/link/click/\"][target=\"_blank\"]"],["href","#continue"],["href",".button[href^=\"javascript\"]"],["disabled","input[id=\"button1\"][class=\"btn btn-primary\"][disabled]"],["type","[src*=\"SPOT\"]","asap stay"],["class","div#player"],["href|target|data-onclick","a[id=\"dl\"][data-onclick^=\"window.open\"]","stay"],["href","a#clickfkplayer"],["onclick","a[onclick^=\"setTimeout\"]"],["href",".mvi-cover"],["href",".t-out-span [href*=\"utm_source\"]","stay"],["src",".t-out-span [src*=\".gif\"]","stay"],["disabled",".panel-body > .text-center > button"],["href","[onclick]","stay"],["onmousedown",".ob-dynamic-rec-link","stay"],["disabled","a#redirect-btn"],["href",".unlock-step-link"],["href","[href*=\"discord\"]"],["href",".MediaStep","stay"],["href","[href=\"/bestporn.html\"]"],["disabled","button#getlink"],["disabled","button#gotolink"],["id","#div-gpt-ad-footer"],["id","#div-gpt-ad-pagebottom"],["id","#div-gpt-ad-relatedbottom-1"],["id","#div-gpt-ad-sidebottom"],["disabled",".downloadbtn"],["onclick","#direct_link > a[onclick]"],["href","[onclick^=\"pop\"]"],["disabled","#gotolink"],["style","[style*=\"background-image: url\"]","stay"],["href","[href*=\"click?\"]","stay"],["href",".atas > a[href*=\"/redirect\"][onclick]"],["onload","[onload^=\"window.open\"]"],["href","a[href*=\"torrentico.top/sim/go.php\"]"],["onclick","[type=\"submit\"]"],["onclick","a#downloadbtn[onclick^=\"window.open\"]","stay"],["onclick","a[onclick]"],["onclick","a[onclick*=\"window.open\"]"],["style","[style^=\"background\"]","stay"],["href","[target^=\"_\"]","stay"],["onclick|oncontextmenu|onmouseover","a[href][onclick*=\"this.href\"]","stay"],["class|style","div[id^=\"los40_gpt\"]"],["data-woman-ex","a[href][data-woman-ex]"],["data-trm-action|data-trm-category|data-trm-label",".trm_event","stay"]];
 
-const hostnamesMap = new Map([["mcloud.bz",0],["vidstream.pro",0],["bs.to",1],["payskip.org",1],["dozarte.com",1],["goalup.live",1],["pornoborshch.com",1],["imgprime.com",2],["magnetdl.com",3],["magnetdl.org",3],["moondoge.co.in",4],["igg-games.com",6],["crazyvidup.com",6],["22pixx.xyz",[10,11,12]],["games2rule.com",13],["games4king.com",13],["sexykittenporn.com",14],["errotica-archives.com",14],["shon.xyz",15],["amyscans.com",16],["dvdgayonline.com",16],["supergoku.com",16],["streampourvous.com",16],["openloading.com",16],["dvdgayporn.com",16],["latinohentai.com",16],["vumoo.cc",16],["eegybest.xyz",16],["animesgratis.org",16],["filerio.in",17],["fastconverter.net",17],["xxx-image.com",19],["desired.de",20],["premiumstream.live",23],["newsonthegotoday.com",24],["findandfound.ga",25],["18kalebettv.xyz",25],["19kalebettv.xyz",25],["apps2app.com",26],["appsmodz.com",26],["note1s.com",26],["paste1s.com",26],["tr.link",27],["work.ink",28],["freeplayervideo.com",29],["nazarickol.com",29],["player-cdn.com",29],["playhydrax.com",29],["1001tracklists.com",[30,31]],["swiftuploads.com",32],["myprivatejobs.com",33],["wikitraveltips.com",33],["amritadrino.com",33],["aylink.co",34],["gitizle.vip",34],["shtms.co",34],["satoshi-win.xyz",35],["promo-visits.site",36],["bitzite.com",37],["cpmlink.pro",38],["host-buzz.com",39],["insmyst.com",39],["wp2host.com",39],["blogtechh.com",39],["lnbz.la",39],["techbixby.com",39],["blogmyst.com",39],["stagatvfiles.com",39],["oii.io",40],["megaurl.in",41],["megafly.in",41],["donpelis.com",41],["smutty.com",42],["iseekgirls.com",44],["tio.ch",45],["ondebaixo.com",48],["ondebaixa.com",48],["ondeeubaixo.org",48],["torrentool.org",48],["egao.in",49],["hindustantimes.com",50],["e-sushi.fr",51],["itsfuck.com",52],["stilltube.com",52],["thumpertalk.com",53],["adz7short.space",54],["allwpworld.com",56],["veoplanet.com",57],["blogdatecnologia.net",58],["diariodecasamento.com",58],["eusaudavel.net",58],["modaestiloeafins.com",58],["portalmundocurioso.com",58],["receitasabores.com",58],["turismoeviagem.com",58],["bowfile.com",59],["av01.tv",61],["film01stream.ws",62],["firstpost.com",[63,64]],["so1.asia",65],["methodspoint.com",66],["welt.de",67],["top1iq.com",68],["sub1s.com",69],["utopiascans.com",70],["mboost.me",71],["watchanime.video",72],["adzz.in",[73,74,82]],["soranews24.com",[75,76,77,78]],["datanodes.to",79],["mega4upload.com",80],["javchill.com",81],["proappapk.com",82],["seznamzpravy.cz",[83,84]],["link.idblog.eu.org",85],["jockantv.com",86],["domaha.tv",87],["xxxrip.net",87],["sextor.org",87],["sex-torrent.net",87],["timestamp.fr",88],["yt2conv.com",89],["av01.media",90],["flixtor2.to",91],["karaoketexty.cz",[92,93]],["los40.com",94],["woman.excite.co.jp",95],["demae-can.com",96]]);
+const hostnamesMap = new Map([["bs.to",1],["payskip.org",1],["dozarte.com",1],["goalup.live",1],["pornoborshch.com",1],["imgprime.com",2],["magnetdl.com",3],["magnetdl.org",3],["igg-games.com",5],["crazyvidup.com",5],["22pixx.xyz",[9,10,11]],["games2rule.com",12],["games4king.com",12],["sexykittenporn.com",13],["errotica-archives.com",13],["shon.xyz",14],["amyscans.com",15],["dvdgayonline.com",15],["supergoku.com",15],["streampourvous.com",15],["openloading.com",15],["dvdgayporn.com",15],["latinohentai.com",15],["vumoo.cc",15],["eegybest.xyz",15],["animesgratis.org",15],["filerio.in",16],["fastconverter.net",16],["xxx-image.com",18],["desired.de",19],["premiumstream.live",22],["newsonthegotoday.com",23],["apps2app.com",24],["appsmodz.com",24],["note1s.com",24],["paste1s.com",24],["tr.link",25],["work.ink",26],["freeplayervideo.com",27],["nazarickol.com",27],["player-cdn.com",27],["playhydrax.com",27],["18kalebettv.xyz",28],["19kalebettv.xyz",28],["swiftuploads.com",29],["myprivatejobs.com",30],["wikitraveltips.com",30],["amritadrino.com",30],["aylink.co",31],["gitizle.vip",31],["shtms.co",31],["satoshi-win.xyz",32],["promo-visits.site",33],["bitzite.com",34],["cpmlink.pro",35],["host-buzz.com",36],["insmyst.com",36],["wp2host.com",36],["blogtechh.com",36],["lnbz.la",36],["techbixby.com",36],["blogmyst.com",36],["stagatvfiles.com",36],["oii.io",37],["megaurl.in",38],["megafly.in",38],["donpelis.com",38],["smutty.com",39],["iseekgirls.com",41],["tio.ch",42],["ondebaixo.com",45],["ondebaixa.com",45],["ondeeubaixo.org",45],["torrentool.org",45],["egao.in",46],["hindustantimes.com",47],["e-sushi.fr",49],["itsfuck.com",50],["stilltube.com",50],["thumpertalk.com",51],["adz7short.space",52],["allwpworld.com",54],["veoplanet.com",55],["blogdatecnologia.net",56],["diariodecasamento.com",56],["eusaudavel.net",56],["modaestiloeafins.com",56],["portalmundocurioso.com",56],["receitasabores.com",56],["turismoeviagem.com",56],["bowfile.com",57],["av01.tv",59],["film01stream.ws",60],["firstpost.com",[61,62]],["so1.asia",63],["methodspoint.com",64],["welt.de",65],["top1iq.com",66],["sub1s.com",67],["utopiascans.com",68],["mboost.me",69],["watchanime.video",70],["adzz.in",[71,72,80]],["soranews24.com",[73,74,75,76]],["datanodes.to",77],["mega4upload.com",78],["javchill.com",79],["proappapk.com",80],["seznamzpravy.cz",[81,82]],["link.idblog.eu.org",83],["jockantv.com",84],["domaha.tv",85],["xxxrip.net",85],["sextor.org",85],["sex-torrent.net",85],["timestamp.fr",86],["yt2conv.com",87],["av01.media",88],["flixtor2.to",89],["karaoketexty.cz",[90,91]],["forum.blu-ray.com",92],["los40.com",93],["woman.excite.co.jp",94],["demae-can.com",95]]);
 
-const entitiesMap = new Map([["vidplay",0],["vizcloud",0],["adbull",1],["burningseries",1],["nextorrent",1],["sportlive",1],["pelisplus",5],["pelispedia",[5,21,22]],["cine-calidad",5],["douploads",7],["vinaurl",8],["filecrypt",9],["mega4up",15],["zeefiles",15],["cinetux",16],["dpstream",16],["allcalidad",16],["pelis28",16],["jetanimes",16],["anxcinema",16],["hdmovie5",16],["pelishouse",16],["mlwbd",18],["pelispedia24",21],["strcloud",43],["streamtape",43],["streamta",43],["strtape",43],["strtapeadblock",43],["fzm",46],["fzmovies",46],["lite-link",47],["waploaded",55],["onionplay",60]]);
+const entitiesMap = new Map([["vidplay",0],["vizcloud",0],["adbull",1],["burningseries",1],["nextorrent",1],["sportlive",1],["pelisplus",4],["pelispedia",[4,20,21]],["cine-calidad",4],["douploads",6],["vinaurl",7],["filecrypt",8],["mega4up",14],["zeefiles",14],["cinetux",15],["dpstream",15],["allcalidad",15],["pelis28",15],["jetanimes",15],["anxcinema",15],["hdmovie5",15],["pelishouse",15],["mlwbd",17],["pelispedia24",20],["strcloud",40],["streamtape",40],["streamta",40],["strtape",40],["strtapeadblock",40],["fzm",43],["fzmovies",43],["lite-link",44],["xcloud",48],["waploaded",53],["onionplay",58]]);
 
 const exceptionsMap = new Map([]);
 
@@ -283,13 +283,11 @@ function safeSelf() {
     scriptletGlobals.safeSelf = safe;
     if ( scriptletGlobals.bcSecret === undefined ) { return safe; }
     // This is executed only when the logger is opened
-    const bc = new self.BroadcastChannel(scriptletGlobals.bcSecret);
-    let bcBuffer = [];
     safe.logLevel = scriptletGlobals.logLevel || 1;
     let lastLogType = '';
     let lastLogText = '';
     let lastLogTime = 0;
-    safe.sendToLogger = (type, ...args) => {
+    safe.toLogText = (type, ...args) => {
         if ( args.length === 0 ) { return; }
         const text = `[${document.location.hostname || document.location.href}]${args.join(' ')}`;
         if ( text === lastLogText && type === lastLogType ) {
@@ -298,30 +296,45 @@ function safeSelf() {
         lastLogType = type;
         lastLogText = text;
         lastLogTime = Date.now();
-        if ( bcBuffer === undefined ) {
-            return bc.postMessage({ what: 'messageToLogger', type, text });
-        }
-        bcBuffer.push({ type, text });
+        return text;
     };
-    bc.onmessage = ev => {
-        const msg = ev.data;
-        switch ( msg ) {
-        case 'iamready!':
-            if ( bcBuffer === undefined ) { break; }
-            bcBuffer.forEach(({ type, text }) =>
-                bc.postMessage({ what: 'messageToLogger', type, text })
-            );
-            bcBuffer = undefined;
-            break;
-        case 'setScriptletLogLevelToOne':
-            safe.logLevel = 1;
-            break;
-        case 'setScriptletLogLevelToTwo':
-            safe.logLevel = 2;
-            break;
-        }
-    };
-    bc.postMessage('areyouready?');
+    try {
+        const bc = new self.BroadcastChannel(scriptletGlobals.bcSecret);
+        let bcBuffer = [];
+        safe.sendToLogger = (type, ...args) => {
+            const text = safe.toLogText(type, ...args);
+            if ( text === undefined ) { return; }
+            if ( bcBuffer === undefined ) {
+                return bc.postMessage({ what: 'messageToLogger', type, text });
+            }
+            bcBuffer.push({ type, text });
+        };
+        bc.onmessage = ev => {
+            const msg = ev.data;
+            switch ( msg ) {
+            case 'iamready!':
+                if ( bcBuffer === undefined ) { break; }
+                bcBuffer.forEach(({ type, text }) =>
+                    bc.postMessage({ what: 'messageToLogger', type, text })
+                );
+                bcBuffer = undefined;
+                break;
+            case 'setScriptletLogLevelToOne':
+                safe.logLevel = 1;
+                break;
+            case 'setScriptletLogLevelToTwo':
+                safe.logLevel = 2;
+                break;
+            }
+        };
+        bc.postMessage('areyouready?');
+    } catch(_) {
+        safe.sendToLogger = (type, ...args) => {
+            const text = safe.toLogText(type, ...args);
+            if ( text === undefined ) { return; }
+            safe.log(`uBO ${text}`);
+        };
+    }
     return safe;
 }
 
