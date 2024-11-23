@@ -13,6 +13,7 @@
    "antenastars.ro",
    "as.ro",
    "divahair.ro",
+   "evz.ro",
    "jurnalul.ro",
    "observator.tv",
    "observatornews.ro",
@@ -26,7 +27,7 @@
   "urlFilter": "||imasdk.googleapis.com/js/sdkloader/ima3.js"
  },
  "id": 1,
- "priority": 32
+ "priority": 41
 },
 {
  "action": {
@@ -45,6 +46,6 @@
   "urlFilter": "||imasdk.googleapis.com/js/sdkloader/ima3.js"
  },
  "id": 2,
- "priority": 2
+ "priority": 11
 }
 ]

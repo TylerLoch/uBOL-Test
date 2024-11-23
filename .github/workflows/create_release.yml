@@ -47,7 +47,6 @@ jobs:
           cd - > /dev/null
           rm -rf chromium
           mv "$UBLOCK_REPO_DIR/dist/build/uBOLite.chromium" chromium
-          cp "$UBLOCK_REPO_DIR/dist/build/mv3-data/log.txt" chromium/
       # Edge
       - name: Build Edge uBOLite MV3 packages
         run: |
@@ -93,14 +92,14 @@ jobs:
             
             </details>
       - name: Upload Chromium uBOLite MV3 package
-        uses: softprops/action-gh-release@v1
+        uses: softprops/action-gh-release@v2
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
           tag_name: ${{ env.TAGNAME }}
           files: ${{ env.UBLOCK_REPO_DIR }}/dist/build/${{ env.CHROMIUM_PACKAGE }}
       - name: Upload Edge uBOLite MV3 package
-        uses: softprops/action-gh-release@v1
+        uses: softprops/action-gh-release@v2
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
