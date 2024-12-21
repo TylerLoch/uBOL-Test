@@ -39,9 +39,9 @@ const uBOL_spoofCSS = function() {
 
 const scriptletGlobals = {}; // eslint-disable-line
 
-const argsList = [["#btx1, #btx2, #wg-genx > .mediafire","visibility","visible"],["[id^=\"div-gpt-ad\"]","display","block"],["a img:not([src=\"images/main_logo_inverted.png\"])","visibility","visible"],["[target=\"_blank\"][rel$=\" noopener noreferrer\"]:has(> img[src^=\"/images/\"]), [target=\"_blank\"][rel^=\"noopener noreferrer\"]:has(> img[src^=\"/images/\"])","display","block"]];
+const argsList = [["#btx1, #btx2, #wg-genx > .mediafire","visibility","visible"],["[id^=\"div-gpt-ad\"]","display","block"],["a img:not([src=\"images/main_logo_inverted.png\"])","visibility","visible"]];
 
-const hostnamesMap = new Map([["techcyan.com",0],["kiktu.com",0],["upshrink.com",0],["trangchu.news",0],["banaraswap.in",0],["jytechs.in",1],["dev.miuiflash.com",1],["djxmaza.in",1],["thecubexguide.com",1],["download.megaup.net",2],["1001tracklists.com",3]]);
+const hostnamesMap = new Map([["techcyan.com",0],["kiktu.com",0],["upshrink.com",0],["trangchu.news",0],["banaraswap.in",0],["jytechs.in",1],["dev.miuiflash.com",1],["djxmaza.in",1],["thecubexguide.com",1],["download.megaup.net",2]]);
 
 const entitiesMap = new Map([]);
 
@@ -191,6 +191,7 @@ function safeSelf() {
         'RegExp_exec': self.RegExp.prototype.exec,
         'Request_clone': self.Request.prototype.clone,
         'String_fromCharCode': String.fromCharCode,
+        'String_split': String.prototype.split,
         'XMLHttpRequest': self.XMLHttpRequest,
         'addEventListener': self.EventTarget.prototype.addEventListener,
         'removeEventListener': self.EventTarget.prototype.removeEventListener,

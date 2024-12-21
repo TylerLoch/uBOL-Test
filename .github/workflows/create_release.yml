@@ -63,9 +63,12 @@ jobs:
           commit_message: "[workflow] Update uBOLite MV3 package files for ${{ env.TAGNAME }}"
       - name: Create GitHub release
         id: create_release
-        uses: ncipollo/release-action@v1
+        uses: softprops/action-gh-release@v2
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
-          tag: ${{ env.TAGNAME }}
+          tag_name: ${{ env.TAGNAME }}
+          name: ${{ env.TAGNAME }}
           prerelease: true
           body: |
             **uBO Lite** (uBOL), a **permission-less** [MV3 API-based](https://developer.chrome.com/docs/extensions/mv3/intro/) content blocker.
