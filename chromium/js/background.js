@@ -22,6 +22,7 @@
 import {
     MODE_BASIC,
     MODE_OPTIMAL,
+    MODE_COMPLETE,
     getDefaultFilteringMode,
     getFilteringMode,
     getTrustedSites,
@@ -436,8 +437,8 @@ async function start() {
     if ( process.firstRun ) {
         const enableOptimal = await hasOmnipotence();
         if ( enableOptimal ) {
-            const afterLevel = await setDefaultFilteringMode(MODE_OPTIMAL);
-            if ( afterLevel === MODE_OPTIMAL ) {
+            const afterLevel = await setDefaultFilteringMode(MODE_COMPLETE);
+            if ( afterLevel === MODE_COMPLETE ) {
                 updateDynamicRules();
                 registerInjectables();
                 process.firstRun = false;
