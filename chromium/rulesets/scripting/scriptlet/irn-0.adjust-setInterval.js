@@ -24,8 +24,6 @@
 
 // ruleset: irn-0
 
-/******************************************************************************/
-
 // Important!
 // Isolate from global scope
 
@@ -39,9 +37,9 @@ const uBOL_adjustSetInterval = function() {
 
 const scriptletGlobals = {}; // eslint-disable-line
 
-const argsList = [["timeLeft","*","0.02"],[],["","","0"]];
+const argsList = [["timeLeft","*","0.02"],[],["countdown"],["","","0"]];
 
-const hostnamesMap = new Map([["animelist.tv",0],["gold-team.org",1],["iwo.ir",1],["uupload.ir",1],["up44.ir",2]]);
+const hostnamesMap = new Map([["animelist.tv",0],["gold-team.org",1],["iwo.ir",1],["uupload.ir",1],["subkade.ir",2],["up44.ir",3]]);
 
 const entitiesMap = new Map([]);
 
@@ -280,8 +278,8 @@ try {
     const pos = origin.lastIndexOf('://');
     if ( pos === -1 ) { return; }
     hnParts.push(...origin.slice(pos+3).split('.'));
+} catch {
 }
-catch(ex) { }
 const hnpartslen = hnParts.length;
 if ( hnpartslen === 0 ) { return; }
 
@@ -338,7 +336,7 @@ if ( entitiesMap.size !== 0 ) {
 // Apply scriplets
 for ( const i of todoIndices ) {
     try { adjustSetInterval(...argsList[i]); }
-    catch(ex) {}
+    catch { }
 }
 argsList.length = 0;
 

@@ -20,6 +20,7 @@
    "analytics.teknikveckan.se",
    "analytics.undeco.se",
    "api-sa.rikatillsammans.se",
+   "app-statistics.puzzel.com",
    "aservice.tools",
    "barbours.com.se",
    "borsvarlden-banners.azurewebsites.net",
@@ -35,14 +36,11 @@
    "distansarbete.com",
    "es.loppi.se",
    "fila.com.se",
-   "filasverigese.com",
    "flirtmatch.se",
    "footjoygolfskorrea.com.se",
    "fraagesport.com",
-   "girohjalm.com.se",
    "gtm.ekonomifakta.se",
    "gtm.findroommate.dk",
-   "guesssverige.com.se",
    "guv-bounce.eniro.com",
    "gymshark-sweden.com.se",
    "images-ads.aland.com",
@@ -62,7 +60,6 @@
    "nitroscripts.com",
    "owa.agriprim.se",
    "pcf.tdscd.com",
-   "ph.goteborgfilmfestival.se",
    "pheegoab.click",
    "pixel.playbuzz.com",
    "plowking.mecenat.com",
@@ -99,7 +96,8 @@
    "umami.nordiskehandel.cloud",
    "valentinosverige.com",
    "vejaskor.com.se",
-   "viagogo.se"
+   "viagogo.se",
+   "views.sociablekit.com"
   ],
   "resourceTypes": [
    "main_frame"

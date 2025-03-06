@@ -24,8 +24,6 @@
 
 // ruleset: annoyances-cookies
 
-/******************************************************************************/
-
 // Important!
 // Isolate from global scope
 
@@ -39,9 +37,9 @@ const uBOL_addEventListenerDefuser = function() {
 
 const scriptletGlobals = {}; // eslint-disable-line
 
-const argsList = [["DOMContentLoaded","js-revoke-cookie-manager"],["load","consentDialog"],["load","function(){if(s.readyState==XMLHttpRequest.DONE"],["DOMContentLoaded","checkCookieConsent"],["scroll","innerHeight"]];
+const argsList = [["DOMContentLoaded","js-revoke-cookie-manager"],["load","function(){if(s.readyState==XMLHttpRequest.DONE"]];
 
-const hostnamesMap = new Map([["ubuntu.com",0],["finna.fi",1],["sss.fi",2],["crackoverflow.com",3],["akaanseutu.fi",4],["alueviesti.fi",4],["kiuruvesilehti.fi",4],["lempaala.ideapark.fi",4],["lvs.fi",4],["olutposti.fi",4],["orivedensanomat.fi",4],["pirmediat.fi",4],["radiosun.fi",4],["shl.fi",4],["urjalansanomat.fi",4],["ylojarvenuutiset.fi",4]]);
+const hostnamesMap = new Map([["ubuntu.com",0],["sss.fi",1]]);
 
 const entitiesMap = new Map([]);
 
@@ -99,30 +97,32 @@ function addEventListenerDefuser(
         }
         return matchesBoth;
     };
-    runAt(( ) => {
-        proxyApplyFn('EventTarget.prototype.addEventListener', function(context) {
-            const { callArgs, thisArg } = context;
-            let t, h;
-            try {
-                t = String(callArgs[0]);
-                if ( typeof callArgs[1] === 'function' ) {
-                    h = String(safe.Function_toString(callArgs[1]));
-                } else if ( typeof callArgs[1] === 'object' && callArgs[1] !== null ) {
-                    if ( typeof callArgs[1].handleEvent === 'function' ) {
-                        h = String(safe.Function_toString(callArgs[1].handleEvent));
-                    }
-                } else {
-                    h = String(callArgs[1]);
+    const proxyFn = function(context) {
+        const { callArgs, thisArg } = context;
+        let t, h;
+        try {
+            t = String(callArgs[0]);
+            if ( typeof callArgs[1] === 'function' ) {
+                h = String(safe.Function_toString(callArgs[1]));
+            } else if ( typeof callArgs[1] === 'object' && callArgs[1] !== null ) {
+                if ( typeof callArgs[1].handleEvent === 'function' ) {
+                    h = String(safe.Function_toString(callArgs[1].handleEvent));
                 }
-            } catch {
+            } else {
+                h = String(callArgs[1]);
             }
-            if ( type === '' && pattern === '' ) {
-                safe.uboLog(logPrefix, `Called: ${t}\n${h}\n${elementDetails(thisArg)}`);
-            } else if ( shouldPrevent(thisArg, t, h) ) {
-                return safe.uboLog(logPrefix, `Prevented: ${t}\n${h}\n${elementDetails(thisArg)}`);
-            }
-            return context.reflect();
-        });
+        } catch {
+        }
+        if ( type === '' && pattern === '' ) {
+            safe.uboLog(logPrefix, `Called: ${t}\n${h}\n${elementDetails(thisArg)}`);
+        } else if ( shouldPrevent(thisArg, t, h) ) {
+            return safe.uboLog(logPrefix, `Prevented: ${t}\n${h}\n${elementDetails(thisArg)}`);
+        }
+        return context.reflect();
+    };
+    runAt(( ) => {
+        proxyApplyFn('EventTarget.prototype.addEventListener', proxyFn);
+        proxyApplyFn('document.addEventListener', proxyFn);
     }, extraArgs.runAt);
 }
 
@@ -444,8 +444,8 @@ try {
     const pos = origin.lastIndexOf('://');
     if ( pos === -1 ) { return; }
     hnParts.push(...origin.slice(pos+3).split('.'));
+} catch {
 }
-catch(ex) { }
 const hnpartslen = hnParts.length;
 if ( hnpartslen === 0 ) { return; }
 
@@ -502,7 +502,7 @@ if ( entitiesMap.size !== 0 ) {
 // Apply scriplets
 for ( const i of todoIndices ) {
     try { addEventListenerDefuser(...argsList[i]); }
-    catch(ex) {}
+    catch { }
 }
 argsList.length = 0;
 

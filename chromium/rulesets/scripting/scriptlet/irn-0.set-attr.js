@@ -24,8 +24,6 @@
 
 // ruleset: irn-0
 
-/******************************************************************************/
-
 // Important!
 // Isolate from global scope
 
@@ -39,9 +37,9 @@ const uBOL_setAttr = function() {
 
 const scriptletGlobals = {}; // eslint-disable-line
 
-const argsList = [["a.indirect[data-get]","href","[data-get]"],["img[data-src]","src","[data-src]"]];
+const argsList = [["img[data-src]","src","[data-src]"]];
 
-const hostnamesMap = new Map([["subkade.ir",0],["shahanmusic.ir",1]]);
+const hostnamesMap = new Map([["shahanmusic.ir",0]]);
 
 const entitiesMap = new Map([]);
 
@@ -373,8 +371,8 @@ try {
     const pos = origin.lastIndexOf('://');
     if ( pos === -1 ) { return; }
     hnParts.push(...origin.slice(pos+3).split('.'));
+} catch {
 }
-catch(ex) { }
 const hnpartslen = hnParts.length;
 if ( hnpartslen === 0 ) { return; }
 
@@ -431,7 +429,7 @@ if ( entitiesMap.size !== 0 ) {
 // Apply scriplets
 for ( const i of todoIndices ) {
     try { setAttr(...argsList[i]); }
-    catch(ex) {}
+    catch { }
 }
 argsList.length = 0;
 

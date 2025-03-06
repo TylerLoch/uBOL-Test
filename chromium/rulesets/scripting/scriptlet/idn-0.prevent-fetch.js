@@ -24,8 +24,6 @@
 
 // ruleset: idn-0
 
-/******************************************************************************/
-
 // Important!
 // Isolate from global scope
 
@@ -41,7 +39,7 @@ const scriptletGlobals = {}; // eslint-disable-line
 
 const argsList = [["ads.google.com"],["adsbygoogle"],["clarity.ms"]];
 
-const hostnamesMap = new Map([["mudah.my",0],["cloud.majalahhewan.com",1],["info.gambar.pro",1],["info.mapsaddress.com",1],["info.vebma.com",1],["thejakartapost.com",1],["netq.me",2]]);
+const hostnamesMap = new Map([["mudah.my",0],["cloud.majalahhewan.com",1],["info.gambar.pro",1],["info.mapsaddress.com",1],["info.vebma.com",1],["thejakartapost.com",1],["tutorialsaya.com",1],["netq.me",2]]);
 
 const entitiesMap = new Map([]);
 
@@ -490,8 +488,8 @@ try {
     const pos = origin.lastIndexOf('://');
     if ( pos === -1 ) { return; }
     hnParts.push(...origin.slice(pos+3).split('.'));
+} catch {
 }
-catch(ex) { }
 const hnpartslen = hnParts.length;
 if ( hnpartslen === 0 ) { return; }
 
@@ -548,7 +546,7 @@ if ( entitiesMap.size !== 0 ) {
 // Apply scriplets
 for ( const i of todoIndices ) {
     try { noFetchIf(...argsList[i]); }
-    catch(ex) {}
+    catch { }
 }
 argsList.length = 0;
 

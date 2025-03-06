@@ -24,8 +24,6 @@
 
 // ruleset: tur-0
 
-/******************************************************************************/
-
 // Important!
 // Isolate from global scope
 
@@ -39,11 +37,11 @@ const uBOL_adjustSetInterval = function() {
 
 const scriptletGlobals = {}; // eslint-disable-line
 
-const argsList = [["skipButton","*","0.001"],["money--skip","","0.02"],["after-ads","*","0.001"],["#rekgecyen","*","0.02"],["reklam","*","0.02"],["timer"],[],["advert","*","0.001"],["sec--","*","0.001"],["timeleft","*","0.02"]];
+const argsList = [["skipButton","*","0.001"],["money--skip","","0.02"],["after-ads","*","0.001"],["#rekgecyen","*","0.02"],["reklam","*","0.02"],["advert","*","0.001"],["kalsan","","0.001"],["sec--","*","0.001"],["timeleft","*","0.02"]];
 
-const hostnamesMap = new Map([["dizipal1.com",0],["hdsinemax.com",1],["elzemfilm.org",1],["tafdi3.com",2],["tafdi4.com",2],["tafdi5.com",2],["filmizletv2.com",3],["filmizletv18.com",3],["fullhdfilm.pro",4],["hdfilmifullizle.com",4],["hdfilmfullizle.com",5],["turkturk.org",6],["turkturk.net",6],["itemci.com",7],["filmizlehdfilm.com",8],["fullfilmizle.cc",8],["hdfilmcix.org",8],["hdfilmizlesene.org",8],["sinema.cx",8]]);
+const hostnamesMap = new Map([["dizipal1.com",0],["hdsinemax.com",1],["elzemfilm.org",1],["tafdi3.com",2],["tafdi4.com",2],["tafdi5.com",2],["filmizletv18.com",3],["itemci.com",5],["vkfilmizlet.net",6],["filmizlehdfilm.com",7],["fullfilmizle.cc",7],["hdfilmcix.org",7],["hdfilmizlesene.org",7],["sinema.cx",7]]);
 
-const entitiesMap = new Map([["filmizletv",[3,8]],["fullhdfilmizle",[4,8]],["fullfilmizle",8],["fullhdfilmizletv",8],["hdfilmcehennemi",8],["yabancidizi",9]]);
+const entitiesMap = new Map([["filmizletv",[3,7]],["fullhdfilmizle",[4,7]],["fullhdfilm",4],["fullhdizle",7],["fullfilmizle",7],["fullhdfilmizletv",7],["hdfilmcehennemi",7],["yabancidizi",8]]);
 
 const exceptionsMap = new Map([]);
 
@@ -280,8 +278,8 @@ try {
     const pos = origin.lastIndexOf('://');
     if ( pos === -1 ) { return; }
     hnParts.push(...origin.slice(pos+3).split('.'));
+} catch {
 }
-catch(ex) { }
 const hnpartslen = hnParts.length;
 if ( hnpartslen === 0 ) { return; }
 
@@ -338,7 +336,7 @@ if ( entitiesMap.size !== 0 ) {
 // Apply scriplets
 for ( const i of todoIndices ) {
     try { adjustSetInterval(...argsList[i]); }
-    catch(ex) {}
+    catch { }
 }
 argsList.length = 0;
 

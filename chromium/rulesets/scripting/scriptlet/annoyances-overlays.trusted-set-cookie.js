@@ -24,8 +24,6 @@
 
 // ruleset: annoyances-overlays
 
-/******************************************************************************/
-
 // Important!
 // Isolate from global scope
 
@@ -39,7 +37,7 @@ const uBOL_trustedSetCookie = function() {
 
 const scriptletGlobals = {}; // eslint-disable-line
 
-const argsList = [["intro_popup_last_hidden_at","$currentDate$"],["fandomLeftPanelPersistence","collapsed"]];
+const argsList = [["intro_popup_last_hidden_at","$currentDate$"],["leftPanelOpen","0"]];
 
 const hostnamesMap = new Map([["entra.news",0],["microsoftsecurityinsights.com",0],["substack.com",0],["fandom.com",1]]);
 
@@ -371,8 +369,8 @@ try {
     const pos = origin.lastIndexOf('://');
     if ( pos === -1 ) { return; }
     hnParts.push(...origin.slice(pos+3).split('.'));
+} catch {
 }
-catch(ex) { }
 const hnpartslen = hnParts.length;
 if ( hnpartslen === 0 ) { return; }
 
@@ -429,7 +427,7 @@ if ( entitiesMap.size !== 0 ) {
 // Apply scriplets
 for ( const i of todoIndices ) {
     try { trustedSetCookie(...argsList[i]); }
-    catch(ex) {}
+    catch { }
 }
 argsList.length = 0;
 

@@ -24,8 +24,6 @@
 
 // ruleset: irn-0
 
-/******************************************************************************/
-
 // Important!
 // Isolate from global scope
 
@@ -39,9 +37,9 @@ const uBOL_removeAttr = function() {
 
 const scriptletGlobals = {}; // eslint-disable-line
 
-const argsList = [["onmousedown|onselectstart","body"],["onselectstart|oncopy|oncontextmenu","body"],["oncontextmenu","a.indirect[data-get]"],["draggable","","stay"]];
+const argsList = [["onmousedown|onselectstart","body"],["onselectstart|oncopy|oncontextmenu","body"],["draggable","","stay"]];
 
-const hostnamesMap = new Map([["behtaraneh.ir",0],["musiceman.net",0],["iranstar.com",1],["javan-musics.com",0],["tabanmusic.com",0],["texahang.org",0],["iran-music.com",0],["subkade.ir",2],["takmili.com",3]]);
+const hostnamesMap = new Map([["behtaraneh.ir",0],["musiceman.net",0],["iranstar.com",1],["javan-musics.com",0],["tabanmusic.com",0],["texahang.org",0],["iran-music.com",0],["takmili.com",2]]);
 
 const entitiesMap = new Map([]);
 
@@ -353,8 +351,8 @@ try {
     const pos = origin.lastIndexOf('://');
     if ( pos === -1 ) { return; }
     hnParts.push(...origin.slice(pos+3).split('.'));
+} catch {
 }
-catch(ex) { }
 const hnpartslen = hnParts.length;
 if ( hnpartslen === 0 ) { return; }
 
@@ -411,7 +409,7 @@ if ( entitiesMap.size !== 0 ) {
 // Apply scriplets
 for ( const i of todoIndices ) {
     try { removeAttr(...argsList[i]); }
-    catch(ex) {}
+    catch { }
 }
 argsList.length = 0;
 

@@ -24,8 +24,6 @@
 
 // ruleset: rus-0
 
-/******************************************************************************/
-
 // Important!
 // Isolate from global scope
 
@@ -39,13 +37,13 @@ const uBOL_abortOnStackTrace = function() {
 
 const scriptletGlobals = {}; // eslint-disable-line
 
-const argsList = [["Object.prototype.autoplay","assets"],["document.getElementsByTagName","adsBlocked"],["fetch","eval"],["Object.prototype.parallax","window.onload"],["Object.prototype.ssrAds","completeRadar"],["Object.prototype.crossDomain","ecbrStart"]];
+const argsList = [["Object.prototype.autoplay","assets"],["Object.prototype.checkOvv","/feed|set/"],["Object.prototype.loadAdvertScriptMode","/yastatic\\.net/"],["document.getElementById","/723-|ai-2-/"],["fetch","eval"],["Object.prototype.parallax","window.onload"],["Object.prototype.ssrAds","completeRadar"],["Object.prototype.crossDomain","ecbrStart"]];
 
-const hostnamesMap = new Map([["tvzvezda.ru",0],["blackwot.ru",1],["forums.rusmedserv.com",2],["mail.ru",4],["www.ukr.net",5]]);
+const hostnamesMap = new Map([["tvzvezda.ru",0],["vk.com",1],["vk.ru",1],["ya.ru",2],["ai-next.ru",3],["forums.rusmedserv.com",4],["mail.ru",6],["www.ukr.net",7]]);
 
-const entitiesMap = new Map([["porno365",3]]);
+const entitiesMap = new Map([["porno365",5]]);
 
-const exceptionsMap = new Map([["3igames.mail.ru",[4]],["account.mail.ru",[4]],["auto.mail.ru",[4]],["biz.mail.ru",[4]],["blog.mail.ru",[4]],["bonus.mail.ru",[4]],["calendar.mail.ru",[4]],["calls.mail.ru",[4]],["cloud.mail.ru",[4]],["connect.mail.ru",[4]],["deti.mail.ru",[4]],["dobro.mail.ru",[4]],["e.mail.ru",[4]],["finance.mail.ru",[4]],["gibdd.mail.ru",[4]],["health.mail.ru",[4]],["help.mail.ru",[4]],["hi-tech.mail.ru",[4]],["horo.mail.ru",[4]],["kino.mail.ru",[4]],["lady.mail.ru",[4]],["love.mail.ru",[4]],["mcs.mail.ru",[4]],["minigames.mail.ru",[4]],["my.mail.ru",[4]],["news.mail.ru",[4]],["o2.mail.ru",[4]],["octavius.mail.ru",[4]],["okminigames.mail.ru",[4]],["otvet.mail.ru",[4]],["pets.mail.ru",[4]],["player-smotri.mail.ru",[4]],["pogoda.mail.ru",[4]],["top.mail.ru",[4]],["touch.mail.ru",[4]],["tv.mail.ru",[4]],["vfokuse.mail.ru",[4]],["widgets.mail.ru",[4]]]);
+const exceptionsMap = new Map([["3igames.mail.ru",[6]],["account.mail.ru",[6]],["auto.mail.ru",[6]],["biz.mail.ru",[6]],["blog.mail.ru",[6]],["bonus.mail.ru",[6]],["calendar.mail.ru",[6]],["calls.mail.ru",[6]],["cloud.mail.ru",[6]],["connect.mail.ru",[6]],["deti.mail.ru",[6]],["dobro.mail.ru",[6]],["e.mail.ru",[6]],["finance.mail.ru",[6]],["gibdd.mail.ru",[6]],["health.mail.ru",[6]],["help.mail.ru",[6]],["hi-tech.mail.ru",[6]],["horo.mail.ru",[6]],["kino.mail.ru",[6]],["lady.mail.ru",[6]],["love.mail.ru",[6]],["mcs.mail.ru",[6]],["minigames.mail.ru",[6]],["my.mail.ru",[6]],["news.mail.ru",[6]],["o2.mail.ru",[6]],["octavius.mail.ru",[6]],["okminigames.mail.ru",[6]],["otvet.mail.ru",[6]],["pets.mail.ru",[6]],["player-smotri.mail.ru",[6]],["pogoda.mail.ru",[6]],["top.mail.ru",[6]],["touch.mail.ru",[6]],["tv.mail.ru",[6]],["vfokuse.mail.ru",[6]],["widgets.mail.ru",[6]]]);
 
 /******************************************************************************/
 
@@ -369,8 +367,8 @@ try {
     const pos = origin.lastIndexOf('://');
     if ( pos === -1 ) { return; }
     hnParts.push(...origin.slice(pos+3).split('.'));
+} catch {
 }
-catch(ex) { }
 const hnpartslen = hnParts.length;
 if ( hnpartslen === 0 ) { return; }
 
@@ -427,7 +425,7 @@ if ( entitiesMap.size !== 0 ) {
 // Apply scriplets
 for ( const i of todoIndices ) {
     try { abortOnStackTrace(...argsList[i]); }
-    catch(ex) {}
+    catch { }
 }
 argsList.length = 0;
 

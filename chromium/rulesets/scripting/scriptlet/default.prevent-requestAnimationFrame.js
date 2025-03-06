@@ -24,8 +24,6 @@
 
 // ruleset: default
 
-/******************************************************************************/
-
 // Important!
 // Isolate from global scope
 
@@ -39,9 +37,9 @@ const uBOL_preventRequestAnimationFrame = function() {
 
 const scriptletGlobals = {}; // eslint-disable-line
 
-const argsList = [["exoframe"],["style.opacity"],["/^/"]];
+const argsList = [["exoframe"],["style.opacity"],[".innerHTML"],["/^/"]];
 
-const hostnamesMap = new Map([["pussyspace.com",0],["pussyspace.net",0],["dudestream.com",1],["japscan.lol",2]]);
+const hostnamesMap = new Map([["pussyspace.com",0],["pussyspace.net",0],["dudestream.com",1],["needrom.com",2],["japscan.lol",3]]);
 
 const entitiesMap = new Map([]);
 
@@ -355,8 +353,8 @@ try {
     const pos = origin.lastIndexOf('://');
     if ( pos === -1 ) { return; }
     hnParts.push(...origin.slice(pos+3).split('.'));
+} catch {
 }
-catch(ex) { }
 const hnpartslen = hnParts.length;
 if ( hnpartslen === 0 ) { return; }
 
@@ -413,7 +411,7 @@ if ( entitiesMap.size !== 0 ) {
 // Apply scriplets
 for ( const i of todoIndices ) {
     try { preventRequestAnimationFrame(...argsList[i]); }
-    catch(ex) {}
+    catch { }
 }
 argsList.length = 0;
 

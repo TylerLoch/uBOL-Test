@@ -9,6 +9,7 @@
  "condition": {
   "regexFilter": "^https?://.*",
   "requestDomains": [
+   "159.100.22.89",
    "24d.ir",
    "a.reymit.ir",
    "ad.technews-iran.com",
@@ -52,6 +53,7 @@
    "analytics.plaza.ir",
    "analytics.telewebion.com",
    "analytics.zoomit.ir",
+   "androidupdate.download",
    "anetwork.ir",
    "api.karpishe.com",
    "apm.bama.ir",
@@ -70,6 +72,7 @@
    "behtarinseo.ir",
    "bemchain.io",
    "binoads.ir",
+   "bitad.ir",
    "bixb.exchange",
    "bixbcoin.com",
    "bl9.ir",
@@ -106,6 +109,7 @@
    "emway.ir",
    "error-tracking.arvancloud.com",
    "errortracking.snapp.site",
+   "ewpb.site",
    "excoino.com",
    "facepop.org",
    "falixa.com",
@@ -138,6 +142,7 @@
    "magnetadservices.com",
    "mat-pnu.ir",
    "mediaad.org",
+   "mediawach.com",
    "merita.ir",
    "metrix.behtarino.com",
    "metrix.ir",
@@ -268,6 +273,22 @@
   ]
  },
  "id": 2,
+ "priority": 29
+},
+{
+ "action": {
+  "redirect": {
+   "regexSubstitution": "/strictblock.html#\\0"
+  },
+  "type": "redirect"
+ },
+ "condition": {
+  "regexFilter": "^[a-z-]+://(?:[^/?#]+\\.)?github\\.com/rcycc/-.*",
+  "resourceTypes": [
+   "main_frame"
+  ]
+ },
+ "id": 3,
  "priority": 29
 }
 ]

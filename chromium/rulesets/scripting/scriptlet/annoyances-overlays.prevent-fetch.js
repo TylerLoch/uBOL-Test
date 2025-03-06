@@ -24,8 +24,6 @@
 
 // ruleset: annoyances-overlays
 
-/******************************************************************************/
-
 // Important!
 // Isolate from global scope
 
@@ -39,11 +37,11 @@ const uBOL_noFetchIf = function() {
 
 const scriptletGlobals = {}; // eslint-disable-line
 
-const argsList = [["analytics"],["googlesyndication"],["ads"],["/googlesyndication|googletag/"],["cloudflareinsights.com"],["/adsbygoogle|ad-manager/"]];
+const argsList = [["www3.doubleclick.net"],["analytics"],["googlesyndication"],["ads"],["/googlesyndication|googletag/"],["cloudflareinsights.com"],["/adsbygoogle|ad-manager/"],["doubleclick"]];
 
-const hostnamesMap = new Map([["textcleaner.net",1],["socialcounts.org",1],["viewing.nyc",1],["autopareri.com",1],["curseforge.com",1],["theonegenerator.com",2],["mcskinhistory.com",2],["bypass.city",3],["adbypass.org",3],["amtraker.com",4],["ark-unity.com",5]]);
+const hostnamesMap = new Map([["tools.jabrek.net",0],["textcleaner.net",2],["socialcounts.org",2],["viewing.nyc",2],["autopareri.com",2],["curseforge.com",2],["theonegenerator.com",3],["mcskinhistory.com",3],["bypass.city",4],["adbypass.org",4],["amtraker.com",5],["ark-unity.com",6],["pokeos.com",7]]);
 
-const entitiesMap = new Map([["ddys",0]]);
+const entitiesMap = new Map([["ddys",1]]);
 
 const exceptionsMap = new Map([]);
 
@@ -490,8 +488,8 @@ try {
     const pos = origin.lastIndexOf('://');
     if ( pos === -1 ) { return; }
     hnParts.push(...origin.slice(pos+3).split('.'));
+} catch {
 }
-catch(ex) { }
 const hnpartslen = hnParts.length;
 if ( hnpartslen === 0 ) { return; }
 
@@ -548,7 +546,7 @@ if ( entitiesMap.size !== 0 ) {
 // Apply scriplets
 for ( const i of todoIndices ) {
     try { noFetchIf(...argsList[i]); }
-    catch(ex) {}
+    catch { }
 }
 argsList.length = 0;
 

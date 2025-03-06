@@ -24,8 +24,6 @@
 
 // ruleset: default
 
-/******************************************************************************/
-
 // Important!
 // Isolate from global scope
 
@@ -41,7 +39,7 @@ const scriptletGlobals = {}; // eslint-disable-line
 
 const argsList = [[]];
 
-const hostnamesMap = new Map([["xrares.com",0],["uploadbox.cc",0],["daftporn.com",0],["boost.ink",0],["wootly.ch",0],["sexlist.tv",0],["player.theplatform.com",0],["cine24.online",0],["porntrex.com",0],["stream.hownetwork.xyz",0]]);
+const hostnamesMap = new Map([["xrares.com",0],["daftporn.com",0],["boost.ink",0],["wootly.ch",0],["sexlist.tv",0],["player.theplatform.com",0],["cine24.online",0],["porntrex.com",0],["stream.hownetwork.xyz",0]]);
 
 const entitiesMap = new Map([["europixhd",0],["hdeuropix",0],["hindipix",0],["topeuropix",0],["earnload",0]]);
 
@@ -50,8 +48,8 @@ const exceptionsMap = new Map([]);
 /******************************************************************************/
 
 function disableNewtabLinks() {
-    document.addEventListener('click', function(ev) {
-        var target = ev.target;
+    document.addEventListener('click', ev => {
+        let target = ev.target;
         while ( target !== null ) {
             if ( target.localName === 'a' && target.hasAttribute('target') ) {
                 ev.stopPropagation();
@@ -60,7 +58,7 @@ function disableNewtabLinks() {
             }
             target = target.parentNode;
         }
-    });
+    }, { capture: true });
 }
 
 /******************************************************************************/
@@ -78,8 +76,8 @@ try {
     const pos = origin.lastIndexOf('://');
     if ( pos === -1 ) { return; }
     hnParts.push(...origin.slice(pos+3).split('.'));
+} catch {
 }
-catch(ex) { }
 const hnpartslen = hnParts.length;
 if ( hnpartslen === 0 ) { return; }
 
@@ -136,7 +134,7 @@ if ( entitiesMap.size !== 0 ) {
 // Apply scriplets
 for ( const i of todoIndices ) {
     try { disableNewtabLinks(...argsList[i]); }
-    catch(ex) {}
+    catch { }
 }
 argsList.length = 0;
 

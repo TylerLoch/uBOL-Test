@@ -47,6 +47,11 @@ import {
 } from './admin.js';
 
 import {
+    broadcastMessage,
+    hostnamesFromMatches,
+} from './utils.js';
+
+import {
     enableRulesets,
     excludeFromStrictBlock,
     getEnabledRulesetsDetails,
@@ -71,7 +76,6 @@ import {
     saveRulesetConfig,
 } from './config.js';
 
-import { broadcastMessage } from './utils.js';
 import { registerInjectables } from './scripting-manager.js';
 
 /******************************************************************************/
@@ -79,6 +83,8 @@ import { registerInjectables } from './scripting-manager.js';
 const UBOL_ORIGIN = runtime.getURL('').replace(/\/$/, '');
 
 const canShowBlockedCount = typeof dnr.setExtensionActionOptions === 'function';
+
+let pendingPermissionRequest;
 
 /******************************************************************************/
 
@@ -115,6 +121,30 @@ async function onPermissionsRemoved() {
     }
     registerInjectables();
     return true;
+}
+
+// https://github.com/uBlockOrigin/uBOL-home/issues/280
+async function onPermissionsAdded(permissions) {
+    const details = pendingPermissionRequest;
+    pendingPermissionRequest = undefined;
+    if ( details === undefined ) { return; }
+    const defaultMode = await getDefaultFilteringMode();
+    if ( defaultMode >= MODE_OPTIMAL ) { return; }
+    if ( Array.isArray(permissions.origins) === false ) { return; }
+    const hostnames = hostnamesFromMatches(permissions.origins);
+    if ( hostnames.includes(details.hostname) === false ) { return; }
+    const beforeLevel = await getFilteringMode(details.hostname);
+    if ( beforeLevel === details.afterLevel ) { return; }
+    const afterLevel = await setFilteringMode(details.hostname, details.afterLevel);
+    if ( afterLevel !== details.afterLevel ) { return; }
+    await registerInjectables();
+    if ( rulesetConfig.autoReload ) {
+        self.setTimeout(( ) => {
+            browser.tabs.update(details.tabId, {
+                url: details.url,
+            });
+        }, 437);
+    }
 }
 
 /******************************************************************************/
@@ -313,6 +343,10 @@ function onMessage(request, sender, callback) {
         return true;
     }
 
+    case 'setPendingFilteringMode':
+        pendingPermissionRequest = request;
+        break;
+
     case 'getDefaultFilteringMode': {
         getDefaultFilteringMode().then(level => {
             callback(level);
@@ -435,10 +469,6 @@ async function start() {
 
     runtime.onMessage.addListener(onMessage);
 
-    browser.permissions.onRemoved.addListener(
-        ( ) => { onPermissionsRemoved(); }
-    );
-
     if ( process.firstRun ) {
         const enableOptimal = await hasOmnipotence();
         if ( enableOptimal ) {
@@ -464,6 +494,9 @@ async function start() {
     if ( process.wakeupRun === false ) {
         adminReadEx('disabledFeatures');
     }
+
+    browser.permissions.onRemoved.addListener(onPermissionsRemoved);
+    browser.permissions.onAdded.addListener(onPermissionsAdded);
 }
 
 // https://github.com/uBlockOrigin/uBOL-home/issues/199

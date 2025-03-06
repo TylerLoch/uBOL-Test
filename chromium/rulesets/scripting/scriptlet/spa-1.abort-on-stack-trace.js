@@ -24,8 +24,6 @@
 
 // ruleset: spa-1
 
-/******************************************************************************/
-
 // Important!
 // Isolate from global scope
 
@@ -39,11 +37,11 @@ const uBOL_abortOnStackTrace = function() {
 
 const scriptletGlobals = {}; // eslint-disable-line
 
-const argsList = [["alert","eval"],["history.go","eval"],["JSON.parse","showPopup"]];
+const argsList = [["atob","wp-content/"],["alert","eval"],["history.go","eval"],["JSON.parse","showPopup"]];
 
-const hostnamesMap = new Map([["netcine3.la",[0,1]],["toonscrab.com",2]]);
+const hostnamesMap = new Map([["yomucomics.com",0],["netcine3.la",[1,2]],["toonscrab.com",3]]);
 
-const entitiesMap = new Map([["netcine",[0,1]]]);
+const entitiesMap = new Map([["netcine",[1,2]]]);
 
 const exceptionsMap = new Map([]);
 
@@ -369,8 +367,8 @@ try {
     const pos = origin.lastIndexOf('://');
     if ( pos === -1 ) { return; }
     hnParts.push(...origin.slice(pos+3).split('.'));
+} catch {
 }
-catch(ex) { }
 const hnpartslen = hnParts.length;
 if ( hnpartslen === 0 ) { return; }
 
@@ -427,7 +425,7 @@ if ( entitiesMap.size !== 0 ) {
 // Apply scriplets
 for ( const i of todoIndices ) {
     try { abortOnStackTrace(...argsList[i]); }
-    catch(ex) {}
+    catch { }
 }
 argsList.length = 0;
 
