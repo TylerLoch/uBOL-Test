@@ -271,7 +271,7 @@
   },
   "manifest_version": 3,
   "minimum_chrome_version": "122.0",
-  "name": "__MSG_extName__",
+  "name": "uBlock Origin Lite Max",
   "options_page": "dashboard.html",
   "host_permissions": [
     "<all_urls>"
@@ -282,7 +282,7 @@
     "scripting",
     "storage"
   ],
-  "short_name": "uBO Lite",
+  "short_name": "uBO Lite Max",
   "storage": {
     "managed_schema": "managed_storage.json"
   },
