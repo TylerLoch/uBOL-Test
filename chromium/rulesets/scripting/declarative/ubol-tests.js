@@ -1,7 +1,7 @@
 /*******************************************************************************
 
     uBlock Origin Lite - a comprehensive, MV3-compliant content blocker
-    Copyright (C) 2022-present Raymond Hill
+    Copyright (C) 2014-present Raymond Hill
 
     This program is free software: you can redistribute it and/or modify
     it under the terms of the GNU General Public License as published by
@@ -19,36 +19,27 @@
     Home: https://github.com/gorhill/uBlock
 */
 
-'use strict';
+// ruleset: ubol-tests
+
+// Important!
+// Isolate from global scope
+(function uBOL_cssDeclarativeImport() {
 
 /******************************************************************************/
 
-import fs from 'fs/promises';
+const argsList = [["{\"selector\":\"#ccf3 .fail\",\"action\":[\"style\",\"visibility: hidden\"]}","{\"selector\":\"#ccf5 .fail-pseudo::before\",\"action\":[\"style\",\"visibility: hidden\"]}"]];
+
+const hostnamesMap = new Map([["ublockorigin.github.io",0],["localhost",0]]);
+
+const entitiesMap = new Map(undefined);
+
+const exceptionsMap = new Map(undefined);
+
+self.declarativeImports = self.declarativeImports || [];
+self.declarativeImports.push({ argsList, hostnamesMap, entitiesMap, exceptionsMap });
 
 /******************************************************************************/
 
-async function main() {
-    const manifestPath = 'build/uBOLite.edge/manifest.json';
-
-    // Get manifest content
-    const manifest = await fs.readFile(manifestPath, { encoding: 'utf8'
-    }).then(text =>
-        JSON.parse(text)
-    );
-
-    // https://learn.microsoft.com/answers/questions/918426/cant-update-extension-with-declarative-net-request
-    // Set all ruleset path to package root
-    for ( const ruleset of manifest.declarative_net_request.rule_resources ) {
-        const pos = ruleset.path.lastIndexOf('/');
-        if ( pos === -1 ) { continue; }
-        ruleset.path = ruleset.path.slice(pos + 1);
-    }
-    // Commit changes
-    await fs.writeFile(manifestPath,
-        JSON.stringify(manifest, null, 2) + '\n'
-    );
-}
-
-main();
+})();
 
 /******************************************************************************/
